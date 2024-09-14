@@ -10,26 +10,30 @@ export default function Home() {
     <div className='min-h-screen bg-white'>
       <TopBar />
 
-      <main className='container mx-auto mt-8 px-10'>
-        <div className='h-96 flex flex-col items-center justify-center'>
-          <h1 className='text-4xl font-bold text-center mb-2'>
+      <main className='container mx-auto mt-8 px-4 sm:px-6 lg:px-10'>
+        <div className='h-80 sm:h-96 flex flex-col items-center justify-center text-center'>
+          <h1 className='text-2xl sm:text-4xl font-bold mb-2'>
             Discover - Book - Fabricate
           </h1>
-          <p className='text-center text-gray-600 mb-8'>
+          <p className='text-sm sm:text-base text-gray-600 mb-8'>
             Your Journey into Innovation Begins Here!
           </p>
         </div>
 
         <CategoryScroll />
+
+        {/* Makerspaces Section */}
         <section className='my-12'>
-          <h2 className='text-2xl font-bold mb-4'>Explore Makerspaces</h2>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+          <h2 className='text-xl sm:text-2xl font-bold mb-4'>
+            Explore Makerspaces
+          </h2>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
             {[1, 2, 3, 4, 5, 6].map((item) => (
               <div
                 key={item}
                 className='border rounded-lg p-4'
               >
-                <div className='bg-gray-200 h-40 mb-4 rounded'></div>
+                <div className='bg-gray-200 h-32 sm:h-40 mb-4 rounded'></div>
                 <h3 className='font-semibold'>SOA Fab Lab</h3>
                 <p className='text-sm text-gray-600'>Bhubaneswar, Odisha</p>
                 <p className='text-sm text-gray-600'>₹599 per entry</p>
@@ -41,15 +45,18 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Toolrooms Section */}
         <section className='mb-12'>
-          <h2 className='text-2xl font-bold mb-4'>Explore ToolsRooms</h2>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+          <h2 className='text-xl sm:text-2xl font-bold mb-4'>
+            Explore Toolrooms
+          </h2>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
             {[1, 2, 3].map((item) => (
               <div
                 key={item}
                 className='border rounded-lg p-4'
               >
-                <div className='bg-gray-200 h-40 mb-4 rounded'></div>
+                <div className='bg-gray-200 h-32 sm:h-40 mb-4 rounded'></div>
                 <h3 className='font-semibold'>SOA Fab Lab</h3>
                 <p className='text-sm text-gray-600'>Bhubaneswar, Odisha</p>
                 <p className='text-sm text-gray-600'>₹599 per entry</p>
@@ -61,15 +68,16 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Events Section */}
         <section className='mb-12'>
-          <h2 className='text-2xl font-bold mb-4'>Explore Events</h2>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+          <h2 className='text-xl sm:text-2xl font-bold mb-4'>Explore Events</h2>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
             {[1, 2, 3].map((item) => (
               <div
                 key={item}
                 className='border rounded-lg p-4'
               >
-                <div className='bg-gray-200 h-40 mb-4 rounded'></div>
+                <div className='bg-gray-200 h-32 sm:h-40 mb-4 rounded'></div>
                 <h3 className='font-semibold'>SOA Fab Lab</h3>
                 <p className='text-sm text-gray-600'>Bhubaneswar, Odisha</p>
                 <p className='text-sm text-gray-600'>₹599 per entry</p>
@@ -81,9 +89,12 @@ export default function Home() {
           </div>
         </section>
 
+        {/* World Map Section */}
         <section className='mb-12'>
-          <h2 className='text-2xl font-bold mb-4'>Around the world</h2>
-          <div className='bg-gray-200 h-2/3 rounded-lg overflow-hidden'>
+          <h2 className='text-xl sm:text-2xl font-bold mb-4'>
+            Around the world
+          </h2>
+          <div className='bg-gray-200 h-64 sm:h-96 rounded-lg overflow-hidden'>
             <Image
               src={'/world-map.svg'}
               height={2046}
@@ -97,16 +108,18 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className='bg-gray-100 py-8 px-10'>
-        <section className='bg-gray-300 p-8 rounded-xl mb-12 2xl:mx-28 flex items-center justify-between'>
-          <div className='max-w-md'>
-            <h2 className='text-4xl font-bold mb-4'>The Weekly Dispatch</h2>
-            <p className='mb-4 text-xs'>
-              Get our weekly updates from the ecosystem of makers,
-              <br /> innovators and technology, and our community news.
+      <footer className='bg-gray-100 py-8 px-4 sm:px-6 lg:px-10'>
+        <section className='bg-gray-300 p-8 rounded-xl mb-12 mx-auto flex flex-col md:flex-row items-center justify-between'>
+          <div className='max-w-md mb-4 md:mb-0'>
+            <h2 className='text-2xl sm:text-4xl font-bold mb-4'>
+              The Weekly Dispatch
+            </h2>
+            <p className='text-xs'>
+              Get our weekly updates from the ecosystem of makers, innovators
+              and technology, and our community news.
             </p>
           </div>
-          <div className='flex border w-full max-w-screen-sm rounded-xl overflow-hidden'>
+          <div className='flex border w-full max-w-lg rounded-xl overflow-hidden'>
             <Input
               type='email'
               placeholder='Enter your email address here'
@@ -115,7 +128,8 @@ export default function Home() {
             <Button className='rounded-s-none'>Sign Up →</Button>
           </div>
         </section>
-        <div className='container mx-auto grid grid-cols-5 w-full'>
+
+        <div className='container mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8'>
           <div>
             <h3 className='font-semibold mb-2'>Contact Us</h3>
             <ul className='text-sm space-y-1'>
@@ -163,7 +177,7 @@ export default function Home() {
           </div>
           <Button
             variant='outline'
-            className='rounded-2xl py-6'
+            className='rounded-2xl py-6 col-span-2 sm:col-span-1'
           >
             Submit a space
           </Button>
