@@ -7,23 +7,23 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 const categories = [
   '3D Printer',
   'Laser Cutting',
-  '3D Printer',
-  '3D Printer',
+  'Vinyl Cutter',
+  'CNC Router',
+  'Laser Engraver',
+  'Wood CNC',
+  '3D Scanner',
   'Lathe Machine',
   'PCB Machine',
-  'PCB',
-  'CNC Router',
-  'Vinyl Cutter',
   'Soldering Station',
   '3D Printer',
   'Laser Cutting',
-  '3D Printer',
-  '3D Printer',
+  'Vinyl Cutter',
+  'CNC Router',
+  'Laser Engraver',
+  'Wood CNC',
+  '3D Scanner',
   'Lathe Machine',
   'PCB Machine',
-  'PCB',
-  'CNC Router',
-  'Vinyl Cutter',
   'Soldering Station',
 ];
 
@@ -57,7 +57,7 @@ export default function CategoryScroll() {
   };
 
   return (
-    <div className='relative max-w-full'>
+    <div className='relative max-w-full mb-8'>
       {showLeftButton && (
         <div className='absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white to-transparent z-10'>
           <Button
@@ -72,14 +72,14 @@ export default function CategoryScroll() {
       )}
       <div
         ref={scrollRef}
-        className='flex space-x-4 overflow-x-auto scrollbar-hide py-4 px-8'
+        className='flex space-x-4 overflow-x-auto scrollbar-hide py-4'
         onScroll={checkScroll}
       >
         {categories.map((category, index) => (
           <Button
             key={index}
             variant='outline'
-            className='whitespace-nowrap'
+            className='whitespace-nowrap hover:bg-[#4CAF50] px-10'
           >
             {category}
           </Button>

@@ -1074,6 +1074,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "date-fns@npm:4.1.0"
+  checksum: 10c9/d599dc85aa27bc25cb007062c7844feb50762df2d4eb763e8de881318d5ed5ac9c58bd8ac7b7698a6ddb379e24a589b615b76312e2f6e8e5b709b289c32cd7ac
+  languageName: node
+  linkType: hard
+
 "debug@npm:4, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4, debug@npm:^4.3.5":
   version: 4.3.7
   resolution: "debug@npm:4.3.7"
@@ -2701,12 +2708,14 @@ __metadata:
     "@types/react-dom": "npm:^18"
     class-variance-authority: "npm:^0.7.0"
     clsx: "npm:^2.1.1"
+    date-fns: "npm:^4.1.0"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.2.11"
     lucide-react: "npm:^0.441.0"
     next: "npm:14.2.11"
     postcss: "npm:^8"
     react: "npm:^18"
+    react-day-picker: "npm:8.10.1"
     react-dom: "npm:^18"
     tailwind-merge: "npm:^2.5.2"
     tailwindcss: "npm:^3.4.1"
@@ -3375,6 +3384,16 @@ __metadata:
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
   checksum: 10c9/72900df0616e473e824202113c3df6abae59150dfb73ed13273503127235320e9c8ca4aaaaccfd58cf417c6ca92a6e68ee9a5c3182886ae949a768639b388a7b
+  languageName: node
+  linkType: hard
+
+"react-day-picker@npm:8.10.1":
+  version: 8.10.1
+  resolution: "react-day-picker@npm:8.10.1"
+  peerDependencies:
+    date-fns: ^2.28.0 || ^3.0.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 10c9/cce689a1ffd42080197142f233608d8efbf37ee2263bb13358cdb48e1557242ad6fe05f68adb05bd79d2889e8a3085605beeca597cabd008c7352dc4f56a962e
   languageName: node
   linkType: hard
 
