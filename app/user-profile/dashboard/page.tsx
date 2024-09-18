@@ -5,6 +5,7 @@ import { PlusCircle, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Dashboard() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [timePeriod, setTimePeriod] = useState('Monthly');
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleString('en-US', {

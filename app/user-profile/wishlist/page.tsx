@@ -32,6 +32,7 @@ const machines: Machine[] = [
 
 export default function Wishlist() {
   const [activeTab, setActiveTab] = useState('Machines');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [timePeriod, setTimePeriod] = useState('Monthly');
 
   const tabs = ['Machines', 'Events', 'Memberships'];
