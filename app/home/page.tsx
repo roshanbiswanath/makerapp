@@ -2,20 +2,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import TopBar from '@/components/top-bar';
 import CategoryScroll from '@/components/category-scroll';
 import { Calendar, Star } from 'lucide-react';
 
 export default function Page() {
   return (
     <div className='min-h-screen min-w-screen bg-white'>
-      <TopBar />
       <div className='relative h-[400px] sm:h-[600px] flex flex-col items-center justify-center text-center'>
         <Image
           src='/placeholder-top.png'
           alt='Background'
-          layout='fill'
-          objectFit='cover'
+          fill
           className='z-0'
         />
         <div className='relative z-10 max-w-3xl'>

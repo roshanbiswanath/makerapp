@@ -94,7 +94,12 @@ export default function TopBar() {
           >
             List your Machines
           </Button>
-          <Button variant='link' className='text-white underline text-md'>Login | Sign Up</Button>
+          <Link
+            href='/auth'
+            className='text-white underline text-md'
+          >
+            Login | Sign Up
+          </Link>
         </div>
       </div>
     </header>

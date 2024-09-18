@@ -26,7 +26,7 @@ export default function Home() {
         <Image
           src='/backgroundpage.png'
           alt='Background'
-          layout='fill'
+          fill
           className='z-0 object-cover opacity-50'
         />
         <div className='relative bg-white z-10 rounded-xl shadow-lg px-20 py-10 w-full max-w-2xl'>
@@ -57,12 +57,16 @@ export default function Home() {
           </Link>
           <Button
             variant='link'
-            className='w-full text-gray-500 mt-4 hover:text-gray-700'
+            className='w-full text-xs text-gray-500 mt-4 hover:text-gray-700'
           >
             SKIP
           </Button>
         </div>
       </div>
+      <div className='pointer-events-none absolute inset-y-0 left-0 w-full bg-gradient-to-r from-black/40 dark:from-background'></div>
+      <div className='pointer-events-none absolute inset-y-0 right-0 w-full bg-gradient-to-l from-black/40 dark:from-background'></div>
+      <div className='pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/40 dark:from-background'></div>
+      <div className='pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/40 dark:from-background'></div>
     </div>
   );
 }
