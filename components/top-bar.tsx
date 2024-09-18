@@ -31,9 +31,9 @@ export default function TopBar() {
           className='text-2xl font-bold'
         >
           <Image
-            src='/karkhana-logo.png'
+            src='/logo.svg'
             alt='Karkhana Logo'
-            width={150}
+            width={120}
             height={40}
           />
         </Link>
@@ -90,11 +90,11 @@ export default function TopBar() {
           </Button>
           <Button
             variant='outline'
-            className='hidden md:inline-flex p-6 bg-white text-black rounded-xl'
+            className='hidden md:inline-flex p-6 bg-white text-black rounded-xl font-semibold'
           >
             List your Machines
           </Button>
-          <Button variant='link' className='text-white underline'>Login | Sign Up</Button>
+          <Button variant='link' className='text-white underline text-md'>Login | Sign Up</Button>
         </div>
       </div>
     </header>
