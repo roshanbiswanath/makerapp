@@ -31,7 +31,7 @@ export default function TopBar() {
           className='text-2xl font-bold'
         >
           <Image
-            src='/logo.svg'
+            src='/makerapp/logo.svg'
             alt='Karkhana Logo'
             width={120}
             height={40}
@@ -39,7 +39,7 @@ export default function TopBar() {
         </Link>
 
         <div className='flex-grow max-w-3xl mx-4 hidden md:block'>
-          <div className='flex items-center bg-gray-100 rounded-lg'>
+          <div className='flex items-center bg-gray-100 rounded-xl'>
             <div
               className='relative p-4 cursor-pointer flex items-center text-black rounded-xl'
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -75,7 +75,7 @@ export default function TopBar() {
             <input
               type='text'
               placeholder='HDF board cutting machine'
-              className='flex-grow bg-transparent border-none focus:ring-0 py-2 px-4'
+              className='flex-grow bg-transparent border-none py-2 px-4 focus:outline-none cursor-tex text-black'
             />
           </div>
         </div>

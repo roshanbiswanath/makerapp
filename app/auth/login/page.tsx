@@ -29,7 +29,7 @@ export default function LogIn() {
     <div className='min-h-screen min-w-screen bg-white mx-auto'>
       <div className='relative h-screen w-screen flex flex-col items-center justify-center text-center'>
         <Image
-          src='/backgroundpage.png'
+          src='/makerapp/backgroundpage.png'
           alt='Background'
           fill
           className='z-0 object-cover opacity-50'
@@ -82,7 +82,10 @@ export default function LogIn() {
               </span>
               <Separator className='w-20 text-black' />
             </div>
-            <form onSubmit={handleSubmit} className='flex flex-col items-center'>
+            <form
+              onSubmit={handleSubmit}
+              className='flex flex-col items-center'
+            >
               <Input
                 type='text'
                 placeholder='Enter your mobile number or Email ID'

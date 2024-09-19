@@ -93,7 +93,7 @@ export default function Messages() {
         <div className='flex items-center justify-between p-4 border-b'>
           <div className='flex items-center'>
             <Image
-              src='/soa-fab-lab-logo.svg'
+              src='/makerapp/soa-fab-lab-logo.svg'
               alt='SOA Fab Lab'
               width={40}
               height={40}

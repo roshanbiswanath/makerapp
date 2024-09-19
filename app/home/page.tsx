@@ -10,7 +10,7 @@ export default function Page() {
     <div className='min-h-screen min-w-screen bg-white'>
       <div className='relative h-[400px] sm:h-[600px] flex flex-col items-center justify-center text-center'>
         <Image
-          src='/placeholder-top.png'
+          src='/makerapp/placeholder-top.png'
           alt='Background'
           fill
           className='z-0'
@@ -50,7 +50,7 @@ export default function Page() {
                 className='border rounded-xl overflow-hidden shadow-sm'
               >
                 <Image
-                  src='/assetlist.png'
+                  src='/makerapp/assetlist.png'
                   alt={`Creality 3-D Printer ${item}`}
                   width={400}
                   height={600}
@@ -119,7 +119,7 @@ export default function Page() {
 
           <div className='md:w-1/2 bg-yellow-100 rounded-2xl py-1 px-4'>
             <Image
-              src='/world.svg'
+              src='/makerapp/world.svg'
               alt='World Map'
               width={600}
               height={400}

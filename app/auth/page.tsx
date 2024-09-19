@@ -8,7 +8,7 @@ export default function AuthPage() {
     <div className='min-h-screen min-w-screen bg-white mx-auto'>
       <div className='relative h-screen w-screen flex flex-col items-center justify-center text-center'>
         <Image
-          src='/backgroundpage.png'
+          src='/makerapp/backgroundpage.png'
           alt='Background'
           fill
           className='z-0 object-cover opacity-50'
@@ -19,7 +19,7 @@ export default function AuthPage() {
             className='mb-8 text-2xl font-bold flex items-center justify-center'
           >
             <Image
-              src='/Karkhana-logo.png'
+              src='/makerapp/Karkhana-logo.png'
               alt='Karkhana Logo'
               width={200}
               height={120}

@@ -31,7 +31,7 @@ export default function SignUp() {
     <div className='min-h-screen min-w-screen bg-white mx-auto'>
       <div className='relative h-screen w-screen flex flex-col items-center justify-center text-center'>
         <Image
-          src='/backgroundpage.png'
+          src='/makerapp/backgroundpage.png'
           alt='Background'
           fill
           className='z-0 object-cover opacity-50'
