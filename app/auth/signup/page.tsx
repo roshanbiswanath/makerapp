@@ -14,7 +14,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { X, Loader2, Check, MessageCircleMore } from 'lucide-react';
+import { X, Loader2, MessageCircleMore } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 type SignupStep =
