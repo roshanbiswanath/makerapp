@@ -5,23 +5,12 @@ import Link from 'next/link';
 import { ChevronDown, Search, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { useCityStore } from '@/lib/store';
+import { cities } from '@/lib/constants';
 
 export default function TopBar() {
-  const [location, setLocation] = useState('Select Location');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const locations = [
-    'Delhi',
-    'Mumbai',
-    'Kolkata',
-    'Bengaluru',
-    'Chennai',
-    'Hyderabad',
-    'Ahmedabad',
-    'Pune',
-    'Surat',
-    'Jaipur',
-  ];
+  const { selectedCity, setSelectedCity } = useCityStore();
 
   return (
     <header className='absolute z-10 top-0 left-0 text-white w-full mx-auto px-4 py-4 lg:px-8'>
@@ -45,16 +34,16 @@ export default function TopBar() {
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <MapPin className='w-4 h-4 mr-2' />
-              <span className='mr-1'>{location}</span>
+              <span className='mr-1'>{selectedCity}</span>
               <ChevronDown className='w-4 h-4' />
               {isDropdownOpen && (
                 <div className='absolute top-full left-0 mt-2 w-48 bg-gray-100 rounded-xl shadow-lg z-10 overflow-hidden'>
-                  {locations.map((loc) => (
+                  {cities.map((loc) => (
                     <div
                       key={loc}
                       className='px-4 py-2 hover:bg-gray-300 cursor-pointer'
                       onClick={() => {
-                        setLocation(loc);
+                        setSelectedCity(loc);
                         setIsDropdownOpen(false);
                       }}
                     >

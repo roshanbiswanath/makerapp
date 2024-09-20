@@ -1,10 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useCityStore } from '@/lib/store';
 
 const cities = [
   'Delhi',
@@ -19,7 +19,7 @@ const cities = [
 ];
 
 export default function Home() {
-  const [selectedCity, setSelectedCity] = useState('Agra');
+  const { selectedCity, setSelectedCity } = useCityStore();
   return (
     <div className='min-h-screen min-w-screen bg-white mx-auto'>
       <div className='relative h-screen w-screen flex flex-col items-center justify-center text-center'>
