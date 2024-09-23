@@ -88,25 +88,25 @@ export default function Messages() {
   };
 
   return (
-    <div className='flex h-full'>
-      <div className='flex-grow flex flex-col'>
-        <div className='flex items-center justify-between p-4 border-b'>
-          <div className='flex items-center'>
+    <div className="flex h-full">
+      <div className="flex-grow flex flex-col">
+        <div className="flex items-center justify-between p-4 border-b">
+          <div className="flex items-center">
             <Image
-              src='/makerapp/soa-fab-lab-logo.svg'
-              alt='SOA Fab Lab'
+              src="/makerapp/soa-fab-lab-logo.svg"
+              alt="SOA Fab Lab"
               width={40}
               height={40}
-              className='rounded-full mr-3'
+              className="rounded-full mr-3"
             />
-            <h2 className='text-xl font-semibold'>SOA Fab Lab</h2>
+            <h2 className="text-xl font-semibold">SOA Fab Lab</h2>
           </div>
-          <div className='text-sm text-gray-500'>
+          <div className="text-sm text-gray-500">
             We analyze messages for safety, support, product enhancement or
             other purposes. Learn more
           </div>
         </div>
-        <div className='flex-grow overflow-y-auto p-4 space-y-4'>
+        <div className="flex-grow overflow-y-auto p-4 space-y-4">
           {messages.map((message) => (
             <div
               key={message.id}
@@ -122,67 +122,58 @@ export default function Messages() {
                 }`}
               >
                 <p>{message.content}</p>
-                <span className='text-xs text-gray-400 mt-1 block'>
+                <span className="text-xs text-gray-400 mt-1 block">
                   {message.timestamp}
                 </span>
               </div>
             </div>
           ))}
         </div>
-        <div className='p-4 border-t'>
-          <div className='flex items-center'>
+        <div className="p-4 border-t">
+          <div className="flex items-center">
             <Input
-              type='text'
-              placeholder='Type your message here'
+              type="text"
+              placeholder="Type your message here"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              className='flex-grow mr-2'
+              className="flex-grow mr-2"
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
             />
-            <Button
-              onClick={handleSendMessage}
-              className='px-4 py-2'
-            >
+            <Button onClick={handleSendMessage} className="px-4 py-2">
               Send
             </Button>
-            <Button
-              variant='ghost'
-              className='ml-2'
-            >
-              <Mic className='h-5 w-5' />
+            <Button variant="ghost" className="ml-2">
+              <Mic className="h-5 w-5" />
             </Button>
           </div>
         </div>
       </div>
-      <div className='w-64 border-l'>
-        <div className='p-4 border-b'>
-          <Button
-            variant='outline'
-            className='w-full justify-between'
-          >
-            All Messages <ChevronDown className='h-4 w-4' />
+      <div className="w-64 border-l">
+        <div className="p-4 border-b">
+          <Button variant="outline" className="w-full justify-between">
+            All Messages <ChevronDown className="h-4 w-4" />
           </Button>
         </div>
-        <div className='p-2'>
+        <div className="p-2">
           {threads.map((thread) => (
             <div
               key={thread.id}
-              className='flex items-center p-2 hover:bg-gray-100 rounded-lg cursor-pointer'
+              className="flex items-center p-2 hover:bg-gray-100 rounded-lg cursor-pointer"
             >
               <Image
                 src={thread.avatar}
                 alt={thread.name}
                 width={40}
                 height={40}
-                className='rounded-full mr-3'
+                className="rounded-full mr-3"
               />
-              <div className='flex-grow'>
-                <h3 className='font-semibold'>{thread.name}</h3>
-                <p className='text-sm text-gray-500 truncate'>
+              <div className="flex-grow">
+                <h3 className="font-semibold">{thread.name}</h3>
+                <p className="text-sm text-gray-500 truncate">
                   {thread.lastMessage}
                 </p>
               </div>
-              <span className='text-xs text-gray-400'>{thread.date}</span>
+              <span className="text-xs text-gray-400">{thread.date}</span>
             </div>
           ))}
         </div>

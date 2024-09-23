@@ -1,0 +1,21 @@
+# Ignore artifacts:
+build
+dist
+node_modules
+
+# Ignore logs:
+*.log
+
+# Ignore environment variables:
+.env
+
+# Ignore coverage reports:
+coverage
+
+# Ignore specific files:
+*.min.js
+*.bundle.js
+
+# Ignore specific folders:
+public
+static

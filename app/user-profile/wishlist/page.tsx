@@ -38,9 +38,9 @@ export default function Wishlist() {
   const tabs = ['Machines', 'Events', 'Memberships'];
 
   return (
-    <div className='h-full flex flex-col'>
-      <div className='flex justify-between items-center mb-6'>
-        <div className='flex space-x-4'>
+    <div className="h-full flex flex-col">
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex space-x-4">
           {tabs.map((tab) => (
             <Button
               key={tab}
@@ -51,8 +51,8 @@ export default function Wishlist() {
             </Button>
           ))}
         </div>
-        <div className='flex items-center space-x-2'>
-          <span className='text-sm text-gray-600'>
+        <div className="flex items-center space-x-2">
+          <span className="text-sm text-gray-600">
             {new Date().toLocaleString('en-US', {
               weekday: 'short',
               day: 'numeric',
@@ -62,41 +62,38 @@ export default function Wishlist() {
               hour12: true,
             })}
           </span>
-          <Button
-            variant='outline'
-            size='sm'
-          >
-            {timePeriod} <ChevronDown className='ml-2 h-4 w-4' />
+          <Button variant="outline" size="sm">
+            {timePeriod} <ChevronDown className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {machines.map((machine) => (
           <div
             key={machine.id}
-            className='bg-white rounded-lg shadow-md overflow-hidden'
+            className="bg-white rounded-lg shadow-md overflow-hidden"
           >
-            <div className='relative h-48'>
+            <div className="relative h-48">
               <Image
                 src={machine.imageUrl}
                 alt={machine.name}
-                layout='fill'
-                objectFit='cover'
+                layout="fill"
+                objectFit="cover"
               />
               <Button
-                variant='ghost'
-                size='sm'
-                className='absolute top-2 right-2 bg-white rounded-full p-1'
+                variant="ghost"
+                size="sm"
+                className="absolute top-2 right-2 bg-white rounded-full p-1"
               >
-                <Bookmark className='h-5 w-5' />
+                <Bookmark className="h-5 w-5" />
               </Button>
             </div>
-            <div className='p-4'>
-              <h3 className='font-semibold text-lg mb-1'>{machine.name}</h3>
-              <p className='text-sm text-gray-600 mb-2'>{machine.location}</p>
-              <div className='flex items-center'>
-                <Star className='h-4 w-4 text-yellow-400 mr-1' />
+            <div className="p-4">
+              <h3 className="font-semibold text-lg mb-1">{machine.name}</h3>
+              <p className="text-sm text-gray-600 mb-2">{machine.location}</p>
+              <div className="flex items-center">
+                <Star className="h-4 w-4 text-yellow-400 mr-1" />
                 <span>{machine.rating}</span>
               </div>
             </div>
