@@ -13,6 +13,7 @@ export default function Page() {
           src="/makerapp/placeholder-top.png"
           alt="Background"
           fill
+          priority
           className="z-0"
         />
         <div className="relative z-10 max-w-3xl">

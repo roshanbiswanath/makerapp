@@ -611,40 +611,30 @@ export default function SignupFlow() {
   };
 
   return (
-    <div className="min-h-screen min-w-screen bg-white mx-auto">
-      <div className="relative h-screen w-screen flex flex-col items-center justify-center text-center">
-        <Image
-          src="/makerapp/backgroundpage.png"
-          alt="Background"
-          fill
-          className="z-0 object-cover opacity-50"
-        />
-        <Card className="relative w-full z-10 max-w-md mx-auto rounded-xl p-6 mt-10">
-          {renderStep()}
-          <CardFooter className="flex justify-center">
-            <p className="text-sm text-center">
-              {!step.includes('userType') &&
-              !step.includes('industry') &&
-              !step.includes('purpose') ? (
-                <>
-                  Already have an account?{' '}
-                  <Link href="/auth/login" className="underline font-medium">
-                    Log In
-                  </Link>
-                </>
-              ) : null}
-            </p>
-          </CardFooter>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-2 right-2"
-            onClick={() => router.push('/')}
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </Card>
-      </div>
-    </div>
+    <Card className="relative w-full z-10 max-w-md mx-auto rounded-xl p-6 mt-10">
+      {renderStep()}
+      <CardFooter className="flex justify-center">
+        <p className="text-sm text-center">
+          {!step.includes('userType') &&
+          !step.includes('industry') &&
+          !step.includes('purpose') ? (
+            <>
+              Already have an account?{' '}
+              <Link href="/auth/login" className="underline font-medium">
+                Log In
+              </Link>
+            </>
+          ) : null}
+        </p>
+      </CardFooter>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute top-2 right-2"
+        onClick={() => router.push('/')}
+      >
+        <X className="h-4 w-4" />
+      </Button>
+    </Card>
   );
 }

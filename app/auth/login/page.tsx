@@ -60,7 +60,6 @@ export default function LoginFlow() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
       if (step === 'initial') {
@@ -122,6 +121,12 @@ export default function LoginFlow() {
     }
   };
 
+  const handleAuth = () => {
+    // Implement authentication logic here
+    router.push('/home');
+    console.log('Authenticating...');
+  };
+
   const renderStep = () => {
     switch (step) {
       case 'initial':
@@ -165,8 +170,8 @@ export default function LoginFlow() {
                   />
                   Sign In with LinkedIn
                 </Button>
-              </div>
-              <div className="flex w-full py-2 pb-8 items-center justify-center">
+              </div>{' '}
+              <div className="flex w-full py-2 pb-4 items-center justify-center">
                 <Separator className="w-20 text-black" />
                 <span className="bg-background text-xs px-6 text-muted-foreground">
                   or Sign in with
@@ -282,7 +287,7 @@ export default function LoginFlow() {
                   disabled={
                     isLoading || !Object.values(passwordStrength).every(Boolean)
                   }
-                  onClick={() => router.push('/home')}
+                  onClick={() => handleAuth()}
                 >
                   {isLoading ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -337,7 +342,7 @@ export default function LoginFlow() {
                     type="submit"
                     className="rounded-full px-10 py-4"
                     disabled={isLoading}
-                    onClick={() => router.push('/home')}
+                    onClick={() => handleAuth()}
                   >
                     {isLoading ? (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -518,44 +523,34 @@ export default function LoginFlow() {
   };
 
   return (
-    <div className="min-h-screen min-w-screen bg-white mx-auto">
-      <div className="relative h-screen w-screen flex flex-col items-center justify-center text-center">
-        <Image
-          src="/makerapp/backgroundpage.png"
-          alt="Background"
-          fill
-          className="z-0 object-cover opacity-50"
-        />
-        <Card className="relative w-full max-w-md z-10 mx-auto rounded-xl p-6 mt-8">
-          {renderStep()}
-          <CardFooter className="flex justify-center">
-            <p className="text-sm text-center">
-              {!step.includes('forgotPassword') &&
-              !step.includes('newPassword') &&
-              !step.includes('passwordChanged') ? (
-                <>
-                  Don&apos;t have an account?{' '}
-                  <Link href="/auth/signup" className="underline font-medium">
-                    SignUp
-                  </Link>
-                </>
-              ) : (
-                <Link href="/auth/login" className="underline font-semibold">
-                  Back to Login
-                </Link>
-              )}
-            </p>
-          </CardFooter>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-2 right-2"
-            onClick={() => router.push('/')}
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </Card>
-      </div>
-    </div>
+    <Card className="relative w-full max-w-md z-10 mx-auto rounded-xl p-6 mt-8">
+      {renderStep()}
+      <CardFooter className="flex justify-center">
+        <p className="text-sm text-center">
+          {!step.includes('forgotPassword') &&
+          !step.includes('newPassword') &&
+          !step.includes('passwordChanged') ? (
+            <>
+              Don&apos;t have an account?{' '}
+              <Link href="/auth/signup" className="underline font-medium">
+                SignUp
+              </Link>
+            </>
+          ) : (
+            <Link href="/auth/login" className="underline font-semibold">
+              Back to Login
+            </Link>
+          )}
+        </p>
+      </CardFooter>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute top-2 right-2"
+        onClick={() => router.push('/')}
+      >
+        <X className="h-4 w-4" />
+      </Button>
+    </Card>
   );
 }
