@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { useCityStore } from '@/lib/store';
 import { cities } from '@/lib/constants';
-import { Input } from './ui/input';
 
 export default function TopBar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
