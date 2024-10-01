@@ -91,7 +91,9 @@ export default function SignupPage() {
           <Button
             variant="outline"
             className="w-full rounded-full px-6 py-4 text-xs"
-            onClick={() => signIn('google', { callbackUrl: '/home' })}
+            onClick={() =>
+              signIn('google', { callbackUrl: '/auth/signup/name' })
+            }
           >
             <Image
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg"
@@ -105,7 +107,9 @@ export default function SignupPage() {
           <Button
             variant="outline"
             className="w-full rounded-full px-6 py-4 text-xs"
-            onClick={() => signIn('linkedin', { callbackUrl: '/home' })}
+            onClick={() =>
+              signIn('linkedin', { callbackUrl: '/auth/signup/name' })
+            }
           >
             <Image
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg"
