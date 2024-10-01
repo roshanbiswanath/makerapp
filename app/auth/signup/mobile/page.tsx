@@ -41,8 +41,8 @@ export default function MobilePage() {
             placeholder="Enter your mobile number"
             value={mobile}
             onChange={(e) => {
-              setMobile(e.target.value);
               validatePhone(e.target.value);
+              setMobile(e.target.value);
             }}
             className="rounded-xl text-start p-6"
           />

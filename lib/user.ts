@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongodb';
+import type { ObjectId } from 'mongodb';
 import clientPromise from "@/lib/mongodb";
 
 export interface UserData {
@@ -52,7 +52,7 @@ export async function createUser(userData: UserData) {
     return result.insertedId;
 }
 
-export async function updateUser(filter: UserFilter, update: UserUpdate) {
+export async function updateUser(filter: UserFilter, update: Partial<UserUpdate>) {
     const client = await clientPromise;
     const db = client.db();
     return db.collection('users').updateOne(filter, { $set: update });

@@ -35,7 +35,8 @@ export const useAuthStore = create<AuthState>((set) => ({
   setOtpTimer: (timer) => set({ otpTimer: timer }),
 }));
 
-interface SignupState {
+interface SignupStore {
+  userId: string;
   email: string;
   password: string;
   firstName: string;
@@ -44,6 +45,7 @@ interface SignupState {
   userType: string;
   industry: string;
   purpose: string;
+  setUserId: (userId: string) => void;
   setEmail: (email: string) => void;
   setPassword: (password: string) => void;
   setFirstName: (firstName: string) => void;
@@ -52,10 +54,10 @@ interface SignupState {
   setUserType: (userType: string) => void;
   setIndustry: (industry: string) => void;
   setPurpose: (purpose: string) => void;
-  resetStore: () => void;
 }
 
-export const useSignupStore = create<SignupState>((set) => ({
+export const useSignupStore = create<SignupStore>((set) => ({
+  userId: '',
   email: '',
   password: '',
   firstName: '',
@@ -64,6 +66,7 @@ export const useSignupStore = create<SignupState>((set) => ({
   userType: '',
   industry: '',
   purpose: '',
+  setUserId: (userId) => set({ userId }),
   setEmail: (email) => set({ email }),
   setPassword: (password) => set({ password }),
   setFirstName: (firstName) => set({ firstName }),
@@ -72,14 +75,4 @@ export const useSignupStore = create<SignupState>((set) => ({
   setUserType: (userType) => set({ userType }),
   setIndustry: (industry) => set({ industry }),
   setPurpose: (purpose) => set({ purpose }),
-  resetStore: () => set({
-    email: '',
-    password: '',
-    firstName: '',
-    lastName: '',
-    mobile: '',
-    userType: '',
-    industry: '',
-    purpose: '',
-  }),
 }));

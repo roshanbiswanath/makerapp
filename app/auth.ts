@@ -4,12 +4,13 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter"
 import clientPromise from "@/lib/mongodb"
 import bcrypt from 'bcryptjs'
 import { z } from "zod"
-import { getUserByEmail, getUserByMobile, createUser } from "@/lib/user"
+import { getUserByEmail, getUserByMobile, createUser, updateUser } from "@/lib/user"
 import LinkedIn from "next-auth/providers/linkedin"
 import Google from "next-auth/providers/google"
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import Nodemailer from "next-auth/providers/nodemailer"
+import { ObjectId } from 'mongodb';
 
 
 const loginSchema = z.object({
@@ -120,6 +121,10 @@ export async function customSignUp(userData: z.infer<typeof signupSchema>) {
     const hashedPassword = await bcrypt.hash(validatedData.password, 10);
     const newUser = await createUser({ ...validatedData, password: hashedPassword });
     return newUser;
+}
+
+export async function updateSignupData(userId: string, data: Partial<z.infer<typeof signupSchema>>) {
+    await updateUser({ _id: new ObjectId(userId) }, data);
 }
 
 // export async function verifyMobile(mobile: string, otp: string) {

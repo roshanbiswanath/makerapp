@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { useSignupStore } from '@/lib/store';
 import { signIn } from 'next-auth/react';
 import AuthCard from '@/components/auth-card';
+import { customSignUp } from '@/app/auth';
 
 export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,13 +32,32 @@ export default function SignupPage() {
     setIsValidPassword(passwordRegex.test(input));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
+
+    try {
+      const newUser = await customSignUp({
+        email,
+        password,
+        firstName: '',
+        lastName: '',
+        mobile: '',
+        userType: '',
+        industry: '',
+        purpose: ''
+      });
+
+      useSignupStore.getState().setUserId(newUser.toString());
+
+      console.log('Signup successful:', newUser);
+
       router.push('/auth/signup/name');
-    }, 1500);
+    } catch (error) {
+      console.error('Signup error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

@@ -8,13 +8,14 @@ import { Input } from '@/components/ui/input';
 import { Loader2, MessageCircleMore } from 'lucide-react';
 import AuthCard from '@/components/auth-card';
 import { useSignupStore } from '@/lib/store';
+import { updateSignupData } from '@/app/auth';
 
 export default function OtpPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [otpTimer, setOtpTimer] = useState(45);
   const router = useRouter();
-  const { mobile } = useSignupStore();
+  const { mobile, userId } = useSignupStore();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -24,13 +25,25 @@ export default function OtpPage() {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
+
+    try {
+      // if (verified) {
+      await updateSignupData(userId, { mobile });
+
+      console.log('Mobile updated:', mobile);
+
       router.push('/auth/signup/user-type');
-    }, 1500);
+      // } else {
+      router.push('/auth/signup/mobile');
+      // }
+    } catch (error) {
+      console.error('Update error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleOtpChange = (index: number, value: string) => {
