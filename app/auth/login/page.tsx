@@ -74,7 +74,7 @@ export default function LoginPage() {
               height={20}
               className="mr-2"
             />
-            Sign In with Google
+            Continue with Google
           </Button>
           <Button
             variant="outline"
@@ -88,7 +88,7 @@ export default function LoginPage() {
               height={20}
               className="mr-2"
             />
-            Sign In with LinkedIn
+            Continue with LinkedIn
           </Button>
         </div>
         <div className="flex w-full py-2 pb-4 items-center justify-center">

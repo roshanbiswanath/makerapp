@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Check, Loader2 } from 'lucide-react';
 import AuthCard from '@/components/auth-card';
 import { useAuthStore } from '@/lib/store';
+import { signIn } from 'next-auth/react';
 
 export default function EmailLoginPage() {
   const [password, setPassword] = useState('');
@@ -17,11 +18,24 @@ export default function EmailLoginPage() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    // Implement login logic here
-    setTimeout(() => {
+
+    try {
+      const result = await signIn('credentials', {
+        identifier: loginIdentifier,
+        password: password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        throw new Error(result.error);
+      }
+      console.log('Login success:', result);
+      router.push('/home');
+    } catch (error) {
+      console.error('Login error:', error);
+    } finally {
       setIsLoading(false);
-      // router.push('/home');
-    }, 1500);
+    }
   };
 
   return (

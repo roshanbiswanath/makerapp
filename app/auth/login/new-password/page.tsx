@@ -6,21 +6,53 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader2 } from 'lucide-react';
 import AuthCard from '@/components/auth-card';
+import { useSession } from 'next-auth/react';
 
 export default function NewPasswordPage() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const {data: session, update} = useSession();
+
+  if (!session) {
+    router.push('/auth/login');
+    return null;
+  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    // Implement new password logic here
-    setTimeout(() => {
+
+    if (newPassword !== confirmPassword) {
+      console.error('Passwords do not match');
       setIsLoading(false);
+      return;
+    }
+
+    try {
+      // Update the user's password
+      const response = await fetch('/api/auth/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newPassword }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to change password');
+      }
+
+      // Update the session
+      await update();
+
+      console.log('Password changed successfully');
+
       router.push('/auth/login/password-changed');
-    }, 1500);
+    } catch (error) {
+      console.error('Password change error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

@@ -4,44 +4,95 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Loader2, MessageCircleMore } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import AuthCard from '@/components/auth-card';
 import { useAuthStore } from '@/lib/store';
+import { signIn } from 'next-auth/react';
+import { sendOTP, verifyOTP } from '@/lib/otp';
 
 export default function OtpPage() {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
+  const [otpTimer, setOtpTimer] = useState(45);
   const router = useRouter();
-  const { loginIdentifier, otpTimer, setOtpTimer } = useAuthStore();
+  const { loginIdentifier } = useAuthStore();
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (otpTimer > 0) {
+    if (otpTimer > 0 && !otpVerified) {
       interval = setInterval(() => {
-        setOtpTimer(otpTimer - 1);
+        setOtpTimer((prevTimer) => prevTimer - 1);
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [otpTimer, setOtpTimer]);
+  }, [otpTimer, otpVerified]);
+
+  const handleOtpChange = (index: number, value: string) => {
+    if (value.length <= 1 && !isNaN(Number(value))) {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+      if (value !== '' && index < 5) {
+        (
+          document.getElementsByName(`otp-${index + 1}`)[0] as HTMLInputElement
+        ).focus();
+      }
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    setIsLoading(true);
+    const otpString = otp.join('');
+    try {
+      const isValid = await verifyOTP(loginIdentifier, otpString);
+      if (isValid) {
+        setOtpVerified(true);
+      } else {
+        throw new Error('Invalid OTP');
+      }
+    } catch (error) {
+      console.error('OTP verification error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    setIsLoading(true);
+    try {
+      await sendOTP(loginIdentifier);
+      setOtpTimer(45);
+    } catch (error) {
+      console.error('OTP resend error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    // Implement OTP verification logic here
-    setTimeout(() => {
-      setIsLoading(false);
+
+    try {
+      const result = await signIn('credentials', {
+        identifier: loginIdentifier,
+        password: password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        throw new Error(result.error);
+      }
+
+      console.log('Login success:', result);
+
       router.push('/home');
-    }, 1500);
-  };
-
-  const handleOtpChange = (index: number, value: string) => {
-    const newOtp = [...otp];
-    newOtp[index] = value;
-    setOtp(newOtp);
-
-    if (value && index < 5) {
-      const nextInput = document.getElementById(`otp-${index + 1}`);
-      nextInput?.focus();
+    } catch (error) {
+      console.error('Login error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -51,59 +102,75 @@ export default function OtpPage() {
       description={`Enter the code we've sent via SMS to ${loginIdentifier}`}
       onClose={() => router.push('/auth/login')}
     >
-      {/* Rest of the component remains the same */}
-      <div className="h-20 flex justify-center items-center">
-        {isLoading ? <Loader2 className="h-16 w-16 animate-spin" /> : null}
-      </div>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="flex justify-between mb-6">
+        <div className="flex justify-between mb-4">
           {otp.map((digit, index) => (
             <Input
               key={index}
-              id={`otp-${index}`}
               type="text"
-              maxLength={1}
-              className="w-12 h-12 text-center text-2xl border-s-0 border-e-0 border-t-0 rounded-none border-b-2 border-black ring-0 focus:border-b-3 text-green-400"
+              name={`otp-${index}`}
               value={digit}
               onChange={(e) => handleOtpChange(index, e.target.value)}
+              className="w-12 h-12 text-center text-2xl rounded-xl"
+              maxLength={1}
+              disabled={otpVerified}
             />
           ))}
         </div>
-        <p className="text-sm text-center">
-          Resend OTP in{' '}
-          <span className="font-medium text-green-400">
-            {String(Math.floor(otpTimer / 60)).padStart(2, '0')}:
-            {String(otpTimer % 60).padStart(2, '0')}
-          </span>
-        </p>
-        <div className="pt-8">
-          <Button
-            type="submit"
-            className="rounded-full px-10 py-4"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : null}
-            {otp.every((digit) => digit === '') ? 'Continue' : 'VerifyTP'}
-          </Button>
-          <Button
-            variant="link"
-            className="w-full text-xs text-muted-foreground font-light flex gap-x-1 items-center justify-center"
-            onClick={() => {
-              if (otpTimer === 0) {
-                setOtpTimer(45);
-                // Implement resend OTP logic here
-              }
-            }}
-            disabled={otpTimer > 0}
-          >
-            <span>
-              <MessageCircleMore className="h-4 w-4" />
-            </span>{' '}
-            <span>{otpTimer > 0 ? 'Resend OTP' : 'Send on Whatsapp'}</span>
-          </Button>
-        </div>
+        {!otpVerified && (
+          <>
+            <Button
+              type="button"
+              onClick={handleVerifyOtp}
+              className="rounded-full px-10 py-4 w-full"
+              disabled={isLoading || otp.some((digit) => digit === '')}
+            >
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : null}
+              Verify OTP
+            </Button>
+            <p className="text-sm text-center">
+              Resend OTP in{' '}
+              <span className="font-medium">
+                {String(Math.floor(otpTimer / 60)).padStart(2, '0')}:
+                {String(otpTimer % 60).padStart(2, '0')}
+              </span>
+            </p>
+            {otpTimer === 0 && (
+              <Button
+                type="button"
+                variant="link"
+                onClick={handleResendOtp}
+                className="w-full"
+                disabled={isLoading}
+              >
+                Resend OTP
+              </Button>
+            )}
+          </>
+        )}
+        {otpVerified && (
+          <>
+            <Input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="rounded-xl p-6"
+            />
+            <Button
+              type="submit"
+              className="rounded-full px-10 py-4 w-full"
+              disabled={isLoading || !password}
+            >
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : null}
+              Login
+            </Button>
+          </>
+        )}
       </form>
     </AuthCard>
   );
