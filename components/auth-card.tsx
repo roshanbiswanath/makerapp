@@ -9,6 +9,7 @@ import {
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface AuthCardProps {
   title: string;
@@ -16,6 +17,7 @@ interface AuthCardProps {
   children: React.ReactNode;
   footerContent?: React.ReactNode;
   onClose?: () => void;
+  className?: string;
 }
 
 export default function AuthCard({
@@ -24,9 +26,15 @@ export default function AuthCard({
   children,
   footerContent,
   onClose,
+  className,
 }: AuthCardProps) {
   return (
-    <Card className="relative w-full max-w-md z-10 mx-auto rounded-xl p-6">
+    <Card
+      className={cn(
+        'relative w-full max-w-lg z-10 mx-auto rounded-xl p-6',
+        className
+      )}
+    >
       <CardHeader className="space-y-1 text-center">
         <CardTitle className="text-2xl font-bold">{title}</CardTitle>
         {description && (
