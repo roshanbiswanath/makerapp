@@ -8,7 +8,13 @@ import Image from 'next/image';
 import { useCityStore } from '@/lib/store';
 import { cities } from '@/lib/constants';
 
-export default function TopBar() {
+export default function TopBar({
+  bar,
+  button,
+}: {
+  bar?: boolean;
+  button?: boolean;
+}) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { selectedCity, setSelectedCity } = useCityStore();
 
@@ -24,7 +30,11 @@ export default function TopBar() {
           />
         </Link>
 
-        <div className="flex-grow max-w-3xl mx-16 hidden md:block">
+        <div
+          className={`
+          ${bar ? 'hidden' : 'md:block'} flex-grow max-w-3xl mx-16
+          `}
+        >
           <div className="flex items-center bg-gray-100 rounded-xl">
             <div
               className="relative p-4 cursor-pointer flex items-center text-black rounded-xl"
@@ -63,7 +73,11 @@ export default function TopBar() {
           </div>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div
+          className={
+            button ? 'hidden' : 'flex items-center space-x-4 md:space-x-8'
+          }
+        >
           <Button
             size="icon"
             variant="ghost"
@@ -71,12 +85,14 @@ export default function TopBar() {
           >
             EN
           </Button>
-          <Button
-            variant="outline"
-            className="hidden md:inline-flex p-6 bg-white text-black rounded-xl font-semibold"
-          >
-            List your Machines
-          </Button>
+          <Link href="/vendor-space">
+            <Button
+              variant="outline"
+              className="hidden md:inline-flex p-6 bg-white text-black rounded-xl font-semibold"
+            >
+              List your Machines
+            </Button>
+          </Link>
           <Link href="/auth" className="text-white underline text-md">
             Login | Sign Up
           </Link>

@@ -5,6 +5,7 @@ import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useCityStore } from '@/lib/store';
+import TopBar from '@/components/top-bar';
 
 const cities = [
   'Delhi',
@@ -22,6 +23,7 @@ export default function Home() {
   const { selectedCity, setSelectedCity } = useCityStore();
   return (
     <div className="min-h-screen min-w-screen bg-white mx-auto">
+      <TopBar />
       <div className="relative h-screen w-screen flex flex-col items-center justify-center text-center">
         <Image
           src="/makerapp/backgroundpage.png"
