@@ -2000,7 +2000,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.10.0, enhanced-resolve@npm:^5.15.0":
+"enhanced-resolve@npm:^5.15.0":
   version: 5.17.1
   resolution: "enhanced-resolve@npm:5.17.1"
   dependencies:
@@ -3637,7 +3637,6 @@ __metadata:
     mongodb: "npm:^6.9.0"
     next: "npm:14.2.11"
     next-auth: "npm:^5.0.0-beta.22"
-    next-transpile-modules: "npm:^10.0.1"
     postcss: "npm:^8"
     prettier: "npm:^3.3.3"
     react: "npm:^18"
@@ -3924,15 +3923,6 @@ __metadata:
     nodemailer:
       optional: true
   checksum: 10c9/ff851cbe614c0f18499df07d8f961774ca642f020c6b3eeae0be28a1413bea54ed8258197243edbe5dfafc8f2a66378ac57649f4ad28b465ab3521b887e5bdfb
-  languageName: node
-  linkType: hard
-
-"next-transpile-modules@npm:^10.0.1":
-  version: 10.0.1
-  resolution: "next-transpile-modules@npm:10.0.1"
-  dependencies:
-    enhanced-resolve: "npm:^5.10.0"
-  checksum: 10c9/ba8f8baef3d5657e0cc097f7102cd7acd62e593cdeed5fe77772de75915e3e9e28074a285e2214c652ee025b50fd5592493f384d1fb7bc82523777174e06ce1c
   languageName: node
   linkType: hard
 
