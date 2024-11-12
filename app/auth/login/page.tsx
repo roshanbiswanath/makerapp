@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Check, Loader2, MessageCircleMore } from 'lucide-react';
-import { signIn } from 'next-auth/react';
+import { signIn,useSession } from 'next-auth/react';
 import AuthCard from '@/components/auth-card';
 import { useAuthStore } from '@/lib/store';
 
@@ -45,6 +45,8 @@ export default function LoginPage() {
       setIsValidEmail(false);
     }
   };
+
+  console.log(useSession());
 
   return (
     <AuthCard

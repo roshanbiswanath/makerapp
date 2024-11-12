@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { useCityStore } from '@/lib/store';
 import TopBar from '@/components/top-bar';
 
+import { useSession } from 'next-auth/react';
+
 const cities = [
   'Delhi',
   'Gurgaon',
@@ -20,6 +22,7 @@ const cities = [
 ];
 
 export default function Home() {
+  console.log(useSession());
   const { selectedCity, setSelectedCity } = useCityStore();
   return (
     <div className="min-h-screen min-w-screen bg-white mx-auto">

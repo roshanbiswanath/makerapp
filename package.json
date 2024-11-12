@@ -22,7 +22,8 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.441.0",
-    "mongodb": "^6.9.0",
+    "mongodb": "^6.10.0",
+    "net": "^1.0.2",
     "next": "14.2.11",
     "next-auth": "^5.0.0-beta.22",
     "react": "^18",
@@ -45,5 +46,6 @@
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

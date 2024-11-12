@@ -8,6 +8,8 @@ import Image from 'next/image';
 import { useCityStore } from '@/lib/store';
 import { cities } from '@/lib/constants';
 
+import { useSession } from 'next-auth/react';
+
 export default function TopBar({
   bar,
   button,
@@ -17,7 +19,7 @@ export default function TopBar({
 }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { selectedCity, setSelectedCity } = useCityStore();
-
+  let { data,status } = useSession();
   return (
     <header className="absolute z-10 top-0 left-0 text-white w-full mx-auto px-4 py-4 lg:px-8">
       <div className="flex flex-wrap items-center justify-between">
@@ -93,9 +95,17 @@ export default function TopBar({
               List your Machines
             </Button>
           </Link>
+          {status != "authenticated" ? (
           <Link href="/auth" className="text-white underline text-md">
             Login | Sign Up
           </Link>
+          ) : (
+            <>
+            <Link href="/profile" className="text-white underline text-md">
+              Profile
+            </Link>
+            </>
+          )}
         </div>
       </div>
     </header>

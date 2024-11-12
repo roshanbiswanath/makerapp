@@ -27,7 +27,7 @@ export default function footer() {
               <br />
               Makerspace Potential
             </h1>
-            <Link href="/vendor-space/schedule-request">
+            <Link href="https://calendly.com/roshanbiswanathpatra/karkahana-onboarding">
               <Button
                 variant="outline"
                 className="text-white border-white hover:bg-white hover:text-black"
@@ -138,7 +138,9 @@ export default function footer() {
             <br />
             network of makerspaces
           </h2>
-          <Button size="lg">Request a Demo</Button>
+          <Link href="https://calendly.com/roshanbiswanathpatra/karkahana-onboarding">
+            <Button size="lg">Request a Demo</Button>
+          </Link>
         </section>
 
         {/* FAQ Section */}
