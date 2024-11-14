@@ -3,29 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-const categories = [
-  '3D Printer',
-  'Laser Cutting',
-  'Vinyl Cutter',
-  'CNC Router',
-  'Laser Engraver',
-  'Wood CNC',
-  '3D Scanner',
-  'Lathe Machine',
-  'PCB Machine',
-  'Soldering Station',
-  '3D Printer',
-  'Laser Cutting',
-  'Vinyl Cutter',
-  'CNC Router',
-  'Laser Engraver',
-  'Wood CNC',
-  '3D Scanner',
-  'Lathe Machine',
-  'PCB Machine',
-  'Soldering Station',
-];
+import { categories } from '@/lib/constants';
 
 export default function CategoryScroll() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -79,7 +57,7 @@ export default function CategoryScroll() {
           <Button
             key={index}
             variant="outline"
-            className="whitespace-nowrap hover:bg-[#4CAF50] px-10"
+            className="whitespace-nowrap hover:bg-green-500 hover:shadow-md px-10"
           >
             {category}
           </Button>

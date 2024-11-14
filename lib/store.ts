@@ -6,7 +6,7 @@ interface CityState {
 }
 
 export const useCityStore = create<CityState>((set) => ({
-  selectedCity: 'Select Location',
+  selectedCity: 'Location',
   setSelectedCity: (city) => set({ selectedCity: city }),
 }));
 
