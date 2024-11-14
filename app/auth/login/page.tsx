@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Check, Loader2, MessageCircleMore } from 'lucide-react';
-import { signIn,useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import AuthCard from '@/components/auth-card';
 import { useAuthStore } from '@/lib/store';
 
@@ -67,7 +67,6 @@ export default function LoginPage() {
           <Button
             variant="outline"
             className="w-full rounded-full px-6 py-4 text-xs"
-            onClick={() => signIn('google', { callbackUrl: '/home' })}
           >
             <Image
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg"
@@ -81,7 +80,6 @@ export default function LoginPage() {
           <Button
             variant="outline"
             className="w-full rounded-full px-6 py-4 text-xs"
-            onClick={() => signIn('linkedin', { callbackUrl: '/home' })}
           >
             <Image
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg"

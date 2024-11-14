@@ -1,4 +1,3 @@
-// app/auth/signup/page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -10,9 +9,7 @@ import { Loader2, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSignupStore } from '@/lib/store';
-import { signIn } from 'next-auth/react';
 import AuthCard from '@/components/auth-card';
-import { customSignUp } from '@/app/auth';
 
 export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,34 +29,6 @@ export default function SignupPage() {
     setIsValidPassword(passwordRegex.test(input));
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const newUser = await customSignUp({
-        email,
-        password,
-        firstName: '',
-        lastName: '',
-        mobile: '',
-        userType: '',
-        industry: '',
-        purpose: ''
-      });
-
-      useSignupStore.getState().setUserId(newUser.toString());
-
-      console.log('Signup successful:', newUser);
-
-      router.push('/auth/signup/name');
-    } catch (error) {
-      console.error('Signup error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <AuthCard
       title="Create a free account"
@@ -74,7 +43,7 @@ export default function SignupPage() {
       }
       onClose={() => router.push('/')}
     >
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form className="space-y-4">
         <div className="relative">
           <Input
             type="email"
@@ -111,9 +80,6 @@ export default function SignupPage() {
           <Button
             variant="outline"
             className="w-full rounded-full px-6 py-4 text-xs"
-            onClick={() =>
-              signIn('google', { callbackUrl: '/auth/signup/name' })
-            }
           >
             <Image
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg"
@@ -127,9 +93,6 @@ export default function SignupPage() {
           <Button
             variant="outline"
             className="w-full rounded-full px-6 py-4 text-xs"
-            onClick={() =>
-              signIn('linkedin', { callbackUrl: '/auth/signup/name' })
-            }
           >
             <Image
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg"
