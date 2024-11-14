@@ -3,16 +3,16 @@ import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import CategoryScroll from '@/components/category-scroll';
-import { Calendar, Star } from 'lucide-react';
+import { Calendar, Filter, SortAsc, SortAscIcon, Star } from 'lucide-react';
 import Footer from '@/components/footer';
 import TopBar from '@/components/top-bar';
 
 export default function Page() {
   return (
     <div className="min-h-screen min-w-screen bg-white">
-      <TopBar />
-      
-      <div className="relative h-[400px] sm:h-[600px] flex flex-col items-center justify-center text-center">
+      <TopBar theme="dark" />
+
+      <div className="relative h-[400px] sm:h-[500px] flex flex-col items-center justify-end text-center">
         <Image
           src="/makerapp/placeholder-top.png"
           alt="Background"
@@ -20,17 +20,17 @@ export default function Page() {
           priority
           className="z-0"
         />
-        <div className="relative z-10 max-w-3xl">
+        <div className="relative z-10 max-w-3xl mb-8">
           <h1 className="text-3xl sm:text-5xl font-bold mb-4 text-white">
             Find the Perfect Machine for Every Job, Every Time
           </h1>
-          <p className="text-sm sm:text-base text-gray-200 mb-8">
+          <p className="text-sm sm:text-base text-gray-200 mb-8  mx-auto max-w-sm">
             Book Your Machine Online - Ready for Your Next Big Project When You
             Arrive.
           </p>
           <Button
             size="lg"
-            className="mt-14 bg-white text-black hover:bg-gray-100 rounded-full"
+            className="mt-14 bg-transparent border text-white hover:text-black hover:bg-white rounded-full"
           >
             <Calendar className="w-4 h-4 mr-2" />
             <span>SELECT A DATE</span>
@@ -48,11 +48,17 @@ export default function Page() {
         </section>
 
         <section className="my-6">
+          <div className="flex items-center justify-end gap-x-2 pb-4 p-1">
+            <SortAsc className="w-4 h-4 inline-block" />
+            <span className="text-sm">Sort</span>
+            <Filter className="w-4 h-4 inline-block" />
+            <span className="text-sm">Filter</span>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
               <div
                 key={item}
-                className="border rounded-xl overflow-hidden shadow-sm"
+                className="border rounded-xl overflow-hidden hover:shadow-xl shadow-inner"
               >
                 <Image
                   src="/makerapp/assetlist.png"
@@ -85,7 +91,10 @@ export default function Page() {
                         Show More
                       </Link>
                     </div>
-                    <Button variant="default" className="rounded-lg px-6">
+                    <Button
+                      variant="default"
+                      className="rounded-lg px-6 hover:bg-green-500 hover:text-black"
+                    >
                       <span className="text-xs">BOOK NOW</span>
                     </Button>
                   </div>
@@ -94,7 +103,7 @@ export default function Page() {
             ))}
           </div>
           <div className="text-center mt-8">
-            <Button variant="link">View More →</Button>
+            <Button variant="link">View More ---→</Button>
           </div>
         </section>
 
@@ -109,7 +118,7 @@ export default function Page() {
               </p>
             </article>
             <Link href={'/'} className="">
-              View on Map →
+              View on Map ---→
             </Link>
           </div>
 
