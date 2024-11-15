@@ -7,7 +7,6 @@ export const cities = [
   'Hyderabad',
   'Ahmedabad',
   'Pune',
-  'Surat',
   'Jaipur',
 ];
 

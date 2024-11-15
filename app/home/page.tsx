@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import CategoryScroll from '@/components/category-scroll';
-import { Calendar, Filter, SortAsc, SortAscIcon, Star } from 'lucide-react';
+import { Calendar, Filter, SortAsc, Star } from 'lucide-react';
 import Footer from '@/components/footer';
 import TopBar from '@/components/top-bar';
 
@@ -133,7 +132,6 @@ export default function Page() {
           </div>
         </section>
       </main>
-
       <Footer />
     </div>
   );

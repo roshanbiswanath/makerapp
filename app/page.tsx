@@ -20,7 +20,7 @@ export default function Home() {
           fill
           className="z-0 object-cover opacity-50"
         />
-        <div className="relative bg-white mt-10 z-10 rounded-xl shadow-lg px-6 py-10 w-full max-w-xl">
+        <div className="relative bg-white mt-10 z-10 rounded-xl shadow-lg px-8 py-10 w-full max-w-xl">
           <h2 className="text-3xl font-bold mb-10 ">Select your city</h2>
           <Button
             variant="ghost"
