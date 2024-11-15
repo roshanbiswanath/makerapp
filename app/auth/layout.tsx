@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen min-w-screen bg-white mx-auto">
-      <TopBar theme='light' isBg/>
+      <TopBar theme="light" isBg />
       <div className="relative h-screen w-screen flex flex-col items-center justify-center text-center">
         <Image
           src="/makerapp/assetlist.png"

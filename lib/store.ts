@@ -21,7 +21,6 @@ interface AuthState {
   setOtpTimer: (timer: number) => void;
 }
 
-
 export const useAuthStore = create<AuthState>((set) => ({
   loginIdentifier: '',
   isValidEmail: false,

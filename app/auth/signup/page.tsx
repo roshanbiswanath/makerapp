@@ -35,7 +35,7 @@ export default function SignupPage() {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsLoading(false);
     router.push('/auth/signup/name');
-  }
+  };
 
   return (
     <AuthCard
@@ -67,7 +67,7 @@ export default function SignupPage() {
             <Check className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-500" />
           )}
         </div>
-        <div className='relative'>
+        <div className="relative">
           <Input
             type="password"
             placeholder="Use a strong password"

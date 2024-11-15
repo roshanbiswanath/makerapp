@@ -13,7 +13,7 @@ export default function NewPasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const {data: session, update} = useSession();
+  const { data: session, update } = useSession();
 
   if (!session) {
     router.push('/auth/login');
