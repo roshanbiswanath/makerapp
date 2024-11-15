@@ -41,7 +41,7 @@ export default function footer() {
         {/* Features Section */}
         <section className="py-16 px-4 max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">
-            Be a part of India's
+            Be a part of India&aposs
             <br />
             first maker-movement
           </h2>

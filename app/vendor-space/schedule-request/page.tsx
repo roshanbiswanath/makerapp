@@ -6,7 +6,6 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardHeader,
 } from '@/components/ui/card';
 import {
   Select,
@@ -25,7 +24,7 @@ const dates = Array.from({ length: 35 }, (_, i) => i + 1);
 export default function Page() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4 py-20">
-      <TopBar bar button />
+      <TopBar />
       <Card className="w-full max-w-4xl">
         <CardContent className="p-6">
           <div className="grid md:grid-cols-2 gap-8">
