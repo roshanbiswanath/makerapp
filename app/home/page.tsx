@@ -1,12 +1,22 @@
+'use client';
+
 import CategoryScroll from '@/components/category-scroll';
 import Footer from '@/components/footer';
 import TopBar from '@/components/top-bar';
 import { Button } from '@/components/ui/button';
-import { Calendar, Filter, SortAsc, Star } from 'lucide-react';
+import { ArrowUpDown, Calendar, Filter, Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
+import { Filters } from '@/components/filters';
+import { sortOptions } from '@/lib/constants';
+import { Separator } from '@/components/ui/separator';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export default function Page() {
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen min-w-screen bg-white">
       <TopBar theme="dark" />
@@ -48,58 +58,105 @@ export default function Page() {
 
         <section className="my-6">
           <div className="flex items-center justify-end gap-x-2 pb-4 p-1">
-            <SortAsc className="w-4 h-4 inline-block" />
-            <span className="text-sm">Sort</span>
-            <Filter className="w-4 h-4 inline-block" />
-            <span className="text-sm">Filter</span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
+            <div
+              onClick={() => setModalOpen(!modalOpen)}
+              className="cursor-pointer px-2 rounded-xl relative hover:bg-gray-200"
+            >
+              <ArrowUpDown className="h-4 w-4 inline-block" />
+              <span className="text-sm">Sort</span>
+            </div>
+            {modalOpen && (
               <div
-                key={item}
-                className="border rounded-xl overflow-hidden hover:shadow-xl shadow-inner"
+                className={`absolute -bottom-28 border bg-white shadow-lg rounded-xl p-6`}
               >
-                <Image
-                  src="/assetlist.png"
-                  alt={`Creality 3-D Printer ${item}`}
-                  width={400}
-                  height={600}
-                  className="w-full object-cover rounded-xl"
-                />
-                <div className="p-4">
-                  <div className="flex justify-between w-full">
-                    <div>
-                      <h3 className="font-semibold text-lg">
-                        Creality, 3-D Printer
-                      </h3>
-                      <p className="text-xs text-gray-600">
-                        SOA Fab Lab, Bhubaneshwar
-                      </p>
-                    </div>
-                    <div className="flex items-start justify-center gap-x-1.5">
-                      <span className="text-gray-600 font-semibold text-md">
-                        2.5
-                      </span>
-                      <Star className="w-4 h-4 mt-[3px] text-orange-400 fill-current" />
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-end">
-                    <div>
-                      <p className="text-sm my-2">PLA, ABS ; Volumes</p>
-                      <Link href={'/'} className="underline text-xs">
-                        Show More
-                      </Link>
-                    </div>
-                    <Button
-                      variant="default"
-                      className="rounded-lg px-6 hover:bg-green-500 hover:text-black"
+                <div className="flex pb-4">
+                  <ArrowUpDown className="h-5 w-5" />
+                  <p>Sort By</p>
+                </div>
+                <Separator className="mb-2" />
+                {sortOptions.map((option) => (
+                  <div
+                    key={option.id}
+                    className="flex items-center gap-x-2 py-2"
+                  >
+                    <Checkbox
+                      id={option.id}
+                      value={option.id}
+                      className="h-5 w-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500"
+                    />
+                    <p
+                      key={option.id}
+                      className="text-base font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
-                      <span className="text-xs">BOOK NOW</span>
-                    </Button>
+                      {option.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div
+              onClick={() => setIsFilterOpen(true)}
+              className="cursor-pointer px-2 rounded-xl hover:bg-gray-200"
+            >
+              <Filter className="w-4 h-4 inline-block" />
+              <span className="text-sm">Filter</span>
+            </div>
+          </div>
+          <div className="flex gap-x-4 justify-start items-start">
+            {isFilterOpen && (
+              <Filters
+                isOpen={isFilterOpen}
+                onClose={() => setIsFilterOpen(false)}
+              />
+            )}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
+                <div
+                  key={item}
+                  className="border rounded-xl overflow-hidden hover:shadow-xl shadow-inner"
+                >
+                  <Image
+                    src="/assetlist.png"
+                    alt={`Creality 3-D Printer ${item}`}
+                    width={400}
+                    height={600}
+                    className="w-full object-cover rounded-xl"
+                  />
+                  <div className="p-4">
+                    <div className="flex justify-between w-full">
+                      <div>
+                        <h3 className="font-semibold text-lg">
+                          Creality, 3-D Printer
+                        </h3>
+                        <p className="text-xs text-gray-600">
+                          SOA Fab Lab, Bhubaneshwar
+                        </p>
+                      </div>
+                      <div className="flex items-start justify-center gap-x-1.5">
+                        <span className="text-gray-600 font-semibold text-md">
+                          2.5
+                        </span>
+                        <Star className="w-4 h-4 mt-[3px] text-orange-400 fill-current" />
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-end">
+                      <div>
+                        <p className="text-sm my-2">PLA, ABS ; Volumes</p>
+                        <Link href={'/'} className="underline text-xs">
+                          Show More
+                        </Link>
+                      </div>
+                      <Button
+                        variant="default"
+                        className="rounded-lg px-6 hover:bg-green-500 hover:text-black"
+                      >
+                        <span className="text-xs">BOOK NOW</span>
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
           <div className="text-center mt-8">
             <Button variant="link">View More ---→</Button>

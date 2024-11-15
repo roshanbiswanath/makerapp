@@ -454,10 +454,7 @@ export default function LandingPage() {
           We&apos;re almost there, your account is getting ready.
         </p>
 
-        <Link
-          href='/home'
-          className="mt-8 text-gray-500 hover:text-gray-700"
-        >
+        <Link href="/home" className="mt-8 text-gray-500 hover:text-gray-700">
           SKIP FOR NOW
         </Link>
       </div>
