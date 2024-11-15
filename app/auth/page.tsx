@@ -1,14 +1,14 @@
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
 import { X } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function AuthPage() {
   return (
     <div className="min-h-screen min-w-screen bg-white mx-auto">
       <div className="relative h-screen w-screen flex flex-col items-center justify-center text-center">
         <Image
-          src="/makerapp/backgroundpage.png"
+          src="/backgroundpage.png"
           alt="Background"
           fill
           className="z-0 object-cover opacity-50"
@@ -19,7 +19,7 @@ export default function AuthPage() {
             className="mb-8 text-2xl font-bold flex items-center justify-center"
           >
             <Image
-              src="/makerapp/Karkhana-logo.png"
+              src="/Karkhana-logo.png"
               alt="Karkhana Logo"
               width={200}
               height={120}

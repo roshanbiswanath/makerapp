@@ -8,7 +8,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       <TopBar theme="light" isBg />
       <div className="relative h-screen w-screen flex flex-col items-center justify-center text-center">
         <Image
-          src="/makerapp/assetlist.png"
+          src="/assetlist.png"
           alt="Background"
           fill
           className="z-0 object-cover opacity-50"

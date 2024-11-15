@@ -1,12 +1,12 @@
 'use client';
 
-import Image from 'next/image';
-import { X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { useCityStore } from '@/lib/store';
 import TopBar from '@/components/top-bar';
+import { Button } from '@/components/ui/button';
 import { cities } from '@/lib/constants';
+import { useCityStore } from '@/lib/store';
+import { X } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   const { selectedCity, setSelectedCity } = useCityStore();
@@ -15,7 +15,7 @@ export default function Home() {
       <TopBar theme="light" />
       <div className="relative h-screen w-screen flex flex-col items-center justify-center text-center">
         <Image
-          src="/makerapp/backgroundpage.png"
+          src="/backgroundpage.png"
           alt="Background"
           fill
           className="z-0 object-cover opacity-50"

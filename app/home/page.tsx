@@ -1,10 +1,10 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import CategoryScroll from '@/components/category-scroll';
-import { Calendar, Filter, SortAsc, Star } from 'lucide-react';
 import Footer from '@/components/footer';
 import TopBar from '@/components/top-bar';
+import { Button } from '@/components/ui/button';
+import { Calendar, Filter, SortAsc, Star } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Page() {
   return (
@@ -13,7 +13,7 @@ export default function Page() {
 
       <div className="relative h-[400px] sm:h-[500px] flex flex-col items-center justify-end text-center">
         <Image
-          src="/makerapp/placeholder-top.png"
+          src="/placeholder-top.png"
           alt="Background"
           fill
           priority
@@ -60,7 +60,7 @@ export default function Page() {
                 className="border rounded-xl overflow-hidden hover:shadow-xl shadow-inner"
               >
                 <Image
-                  src="/makerapp/assetlist.png"
+                  src="/assetlist.png"
                   alt={`Creality 3-D Printer ${item}`}
                   width={400}
                   height={600}
@@ -123,7 +123,7 @@ export default function Page() {
 
           <div className="md:w-1/2 bg-yellow-100 rounded-2xl py-1 px-4">
             <Image
-              src="/makerapp/world.svg"
+              src="/world.svg"
               alt="World Map"
               width={600}
               height={400}
