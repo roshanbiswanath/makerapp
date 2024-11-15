@@ -57,7 +57,7 @@ export default function CategoryScroll() {
           <Button
             key={index}
             variant="outline"
-            className="whitespace-nowrap hover:bg-green-500 hover:shadow-md px-10"
+            className="whitespace-nowrap hover:bg-green-500 hover:shadow-md px-10 rounded-lg"
           >
             {category}
           </Button>
