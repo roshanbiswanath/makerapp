@@ -9,8 +9,10 @@ import { cities } from '@/lib/constants';
 
 export default function TopBar({
   theme = 'dark',
+  isBg = false,
 }: {
-  theme: 'dark' | 'light';
+  theme?: 'dark' | 'light';
+  isBg?: boolean;
 }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,7 +23,7 @@ export default function TopBar({
 
   const MobileMenu = () => (
     <div
-      className={`absolute top-full left-0 w-full bg-white shadow-lg rounded-b-xl ${isDark ? 'text-black' : 'text-black'}`}
+      className={`absolute top-full right-4 w-1/3 bg-white shadow-lg rounded-xl ${isDark ? 'text-black' : 'text-black'}`}
     >
       <div className="p-4 space-y-4">
         <Link href="/vendor-space" className="block">
@@ -36,13 +38,15 @@ export default function TopBar({
             List your Machines
           </button>
         </Link>
-        <Link href="/auth" className="block text-center py-2 font-medium">
-          Login | Sign Up
-        </Link>
-        <div className="flex items-center justify-center space-x-2">
-          <Languages className="h-4 w-4" />
-          <span className="text-sm">EN</span>
-          <ChevronDown className="w-4 h-4 cursor-pointer" />
+        <div className="flex items-center justify-between px-3">
+          <Link href="/auth" className="block text-center py-2 font-medium">
+            Login | Sign Up
+          </Link>
+          <Link href="/auth" className="flex items-center justify-center">
+            <Languages className="h-4 w-4" />
+            <span className="text-sm">EN</span>
+            <ChevronDown className="w-4 h-4 cursor-pointer" />
+          </Link>
         </div>
       </div>
     </div>
@@ -50,7 +54,7 @@ export default function TopBar({
 
   return (
     <header
-      className={`absolute z-50 top-0 left-0 w-full mx-auto p-4 lg:px-10 xl:px-24 ${isDark ? 'text-white' : 'text-black'}`}
+      className={`${isBg ? 'bg-white' : 'bg-transparent'} absolute z-50 top-0 left-0 w-full mx-auto p-4 lg:px-10 xl:px-24 ${isDark ? 'text-white' : 'text-black'}`}
     >
       <div className="flex flex-wrap items-center justify-between">
         <div className="flex items-center space-x-4">
@@ -106,7 +110,7 @@ export default function TopBar({
           </Link>
         </div>
 
-        <div className="flex-grow max-w-3xl mx-4 lg:mx-0">
+        <div className="flex-grow max-w-2xl mx-4 lg:mx-0 border rounded-xl">
           <div className="flex items-center bg-white rounded-xl">
             <div
               className="relative p-3 cursor-pointer flex items-center text-black rounded-xl"
@@ -149,7 +153,7 @@ export default function TopBar({
             />
             {searchTerm && (
               <X
-                size={24}
+                size={34}
                 className="text-black font-light pr-2 cursor-pointer"
                 onClick={() => setSearchTerm('')}
               />

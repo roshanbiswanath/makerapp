@@ -31,14 +31,14 @@ export default function AuthCard({
   return (
     <Card
       className={cn(
-        'relative w-full max-w-lg z-10 mx-auto rounded-xl p-6',
+        'relative w-full max-w-lg z-10 mx-auto rounded-xl py-10',
         className
       )}
     >
       <CardHeader className="space-y-1 text-center">
-        <CardTitle className="text-2xl font-bold">{title}</CardTitle>
+        <CardTitle className="text-3xl font-bold">{title}</CardTitle>
         {description && (
-          <CardDescription className="text-xs text-muted-foreground">
+          <CardDescription className="text-sm text-muted-foreground max-w-xs mx-auto">
             {description}
           </CardDescription>
         )}
