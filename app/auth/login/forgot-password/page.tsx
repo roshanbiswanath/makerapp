@@ -10,22 +10,22 @@ import { useAuthStore } from '@/lib/store';
 import Link from 'next/link';
 
 export default function ForgotPasswordPage() {
-    const [isLoading, setIsLoading] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
-    const router = useRouter();
-    const { loginIdentifier } = useAuthStore();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const router = useRouter();
+  const { loginIdentifier } = useAuthStore();
 
-    const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      setIsLoading(false);
-      setIsSubmitted(true);
-    };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setIsLoading(false);
+    setIsSubmitted(true);
+  };
 
-    const handleOpenEmail = () => {
-      window.location.href = `mailto:${loginIdentifier}`;
-    };
+  const handleOpenEmail = () => {
+    window.location.href = `mailto:${loginIdentifier}`;
+  };
 
   return (
     <AuthCard
@@ -36,9 +36,9 @@ export default function ForgotPasswordPage() {
           : "No worries, we'll send you reset email."
       }
       footerContent={
-          <Link href="/auth/signup" className="underline font-medium">
-            Back to Login
-          </Link>
+        <Link href="/auth/signup" className="underline font-medium">
+          Back to Login
+        </Link>
       }
       onClose={() => router.push('/')}
     >
@@ -83,11 +83,7 @@ export default function ForgotPasswordPage() {
           className="rounded-full px-10 py-4 mx-auto"
           disabled={isLoading || !loginIdentifier}
         >
-          {isSubmitted ? (
-            'Open Email'
-          ) : (
-            'Reset Password'
-          )}
+          {isSubmitted ? 'Open Email' : 'Reset Password'}
         </Button>
       </form>
     </AuthCard>

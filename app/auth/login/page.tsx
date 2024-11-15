@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Check, Loader2, MessageCircleMore } from 'lucide-react';
-import { useSession } from 'next-auth/react';
 import AuthCard from '@/components/auth-card';
 import { useAuthStore } from '@/lib/store';
 
@@ -27,7 +26,7 @@ export default function LoginPage() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-   if (isValidEmail || isValidPhone) {
+    if (isValidEmail || isValidPhone) {
       router.push('/auth/login/email-login');
     }
     setIsLoading(false);
