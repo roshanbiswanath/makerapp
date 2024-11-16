@@ -10,9 +10,11 @@ import { cities } from '@/lib/constants';
 export default function TopBar({
   theme = 'dark',
   isBg = false,
+  button = true,
 }: {
   theme?: 'dark' | 'light';
   isBg?: boolean;
+  button?: boolean;
 }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -168,7 +170,9 @@ export default function TopBar({
           <Menu className={`h-6 w-6 ${isDark ? 'text-white' : 'text-black'}`} />
         </button>
         <div className="hidden lg:flex items-center space-x-4">
-          <div className="flex items-center justify-center">
+          <div
+            className={`flex items-center justify-center ${button ? 'block' : 'hidden'}`}
+          >
             <Languages
               className={`h-4 w-4 ${isDark ? 'text-white' : 'text-black'}`}
             />
@@ -179,7 +183,10 @@ export default function TopBar({
               className={`w-4 h-4 ${isDark ? 'text-white' : 'text-black'} cursor-pointer`}
             />
           </div>
-          <Link href="/vendor-space">
+          <Link
+            href="/vendor-space"
+            className={`${button ? 'block' : 'hidden'}`}
+          >
             <button
               type="button"
               className={`py-2 px-4 rounded-xl font-semibold ${
