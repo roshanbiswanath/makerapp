@@ -4,7 +4,13 @@ import CategoryScroll from '@/components/category-scroll';
 import Footer from '@/components/footer';
 import TopBar from '@/components/top-bar';
 import { Button } from '@/components/ui/button';
-import { ArrowUpDown, Calendar, Filter, Star } from 'lucide-react';
+import {
+  ArrowUpDown,
+  Calendar,
+  Filter,
+  SlidersHorizontal,
+  Star,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -60,7 +66,7 @@ export default function Page() {
           <div className="flex items-center justify-end gap-x-2 pb-4 p-1">
             <div
               onClick={() => setModalOpen(!modalOpen)}
-              className="cursor-pointer px-2 rounded-xl relative hover:bg-gray-200"
+              className="cursor-pointer px-2 rounded-xl relative hover:bg-gray-200 space-x-2"
             >
               <ArrowUpDown className="h-4 w-4 inline-block" />
               <span className="text-sm">Sort</span>
@@ -82,7 +88,7 @@ export default function Page() {
                     <Checkbox
                       id={option.id}
                       value={option.id}
-                      className="h-5 w-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500"
+                      className="h-5 w-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500 data-[state=checked]:bg-orange-500"
                     />
                     <p
                       key={option.id}
@@ -96,20 +102,20 @@ export default function Page() {
             )}
             <div
               onClick={() => setIsFilterOpen(true)}
-              className="cursor-pointer px-2 rounded-xl hover:bg-gray-200"
+              className={`${isFilterOpen ? 'hidden' : 'block'} cursor-pointer px-2 rounded-xl hover:bg-gray-200 space-x-2`}
             >
-              <Filter className="w-4 h-4 inline-block" />
+              <SlidersHorizontal className="h-4 w-4 inline-block" />
               <span className="text-sm">Filter</span>
             </div>
           </div>
-          <div className="flex gap-x-4 justify-start items-start">
+          <div className="flex gap-x-4">
             {isFilterOpen && (
               <Filters
                 isOpen={isFilterOpen}
                 onClose={() => setIsFilterOpen(false)}
               />
             )}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex-grow grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
                 <div
                   key={item}
@@ -159,11 +165,13 @@ export default function Page() {
             </div>
           </div>
           <div className="text-center mt-8">
-            <Button variant="link">View More ---→</Button>
+            <Button variant="link" className="text-lg">
+              View More →
+            </Button>
           </div>
         </section>
 
-        <section className="mb-12 mt-6 flex flex-col md:flex-row justify-between gap-x-24">
+        <section className="my-16 flex flex-col md:flex-row justify-between gap-x-24">
           <div className="md:w-1/3 py-10 flex flex-col items-start justify-between">
             <article>
               <h2 className="text-2xl sm:text-3xl font-bold mb-4">
@@ -173,9 +181,9 @@ export default function Page() {
                 Find the Perfect Place to Bring Your Ideas to Life
               </p>
             </article>
-            <Link href={'/'} className="">
-              View on Map ---→
-            </Link>
+            <Button variant="link" className="text-lg">
+              View More →
+            </Button>
           </div>
 
           <div className="md:w-1/2 bg-yellow-100 rounded-2xl py-1 px-4">
