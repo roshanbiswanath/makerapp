@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
 import AuthCard from '@/components/auth-card';
+import Link from 'next/link';
 
 export default function PasswordChangedPage() {
   const router = useRouter();
@@ -12,6 +13,11 @@ export default function PasswordChangedPage() {
     <AuthCard
       title="Password Changed"
       description="Your password has been successfully reset."
+      footerContent={
+        <Link href="/auth/login" className="underline font-medium">
+          Back to Login
+        </Link>
+      }
       onClose={() => router.push('/')}
     >
       <div className="flex flex-col items-center">
@@ -20,9 +26,9 @@ export default function PasswordChangedPage() {
         </div>
         <Button
           onClick={() => router.push('/auth/login')}
-          className="rounded-full px-10 py-4"
+          className="rounded-full px-14 py-4"
         >
-          Continue to Login
+          Continue
         </Button>
       </div>
     </AuthCard>

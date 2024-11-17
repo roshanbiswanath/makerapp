@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Check, Loader2 } from 'lucide-react';
 import AuthCard from '@/components/auth-card';
 import { useAuthStore } from '@/lib/store';
-import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function EmailLoginPage() {
   const [password, setPassword] = useState('');
@@ -19,32 +19,26 @@ export default function EmailLoginPage() {
     event.preventDefault();
     setIsLoading(true);
 
-    try {
-      const result = await signIn('credentials', {
-        identifier: loginIdentifier,
-        password: password,
-        redirect: false,
-      });
+    router.push('/home');
 
-      if (result?.error) {
-        throw new Error(result.error);
-      }
-      console.log('Login success:', result);
-      router.push('/home');
-    } catch (error) {
-      console.error('Login error:', error);
-    } finally {
-      setIsLoading(false);
-    }
+    setIsLoading(false);
   };
 
   return (
     <AuthCard
       title="Login to Karkhana Hub"
       description="Empowering you to design, learn, and make an impact."
+      footerContent={
+        <p className="text-sm text-center">
+          Don&apos;t have an account?{' '}
+          <Link href="/auth/signup" className="underline font-medium">
+            SignUp
+          </Link>
+        </p>
+      }
       onClose={() => router.push('/')}
     >
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-8 px-8">
         <div className="space-y-2 text-start">
           <label htmlFor="email" className="text-sm pl-3 font-semibold">
             Email
@@ -73,13 +67,12 @@ export default function EmailLoginPage() {
           />
         </div>
         <div className="space-y-2 text-start">
-          <Button
-            variant="link"
-            className="text-xs pl-3 -mt-3 text-muted-foreground"
-            onClick={() => router.push('/auth/login/forgot-password')}
+          <Link
+            href="/auth/login/forgot-password"
+            className="text-xs pl-3 -mt-3 text-muted-foreground underline-offset-1"
           >
             Forgot Password ?
-          </Button>
+          </Link>
         </div>
         <Button
           type="submit"

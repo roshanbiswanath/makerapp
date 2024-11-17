@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Check, Loader2, MessageCircleMore } from 'lucide-react';
-import { signIn,useSession } from 'next-auth/react';
 import AuthCard from '@/components/auth-card';
 import { useAuthStore } from '@/lib/store';
 
@@ -27,9 +26,7 @@ export default function LoginPage() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    if (isValidPhone) {
-      router.push('/auth/login/otp');
-    } else if (isValidEmail) {
+    if (isValidEmail || isValidPhone) {
       router.push('/auth/login/email-login');
     }
     setIsLoading(false);
@@ -46,8 +43,6 @@ export default function LoginPage() {
     }
   };
 
-  console.log(useSession());
-
   return (
     <AuthCard
       title="Login to Karkhana Hub"
@@ -62,12 +57,11 @@ export default function LoginPage() {
       }
       onClose={() => router.push('/')}
     >
-      <div className="space-y-4 mt-6">
+      <div className="space-y-6 px-8 mt-6">
         <div className="grid grid-cols-2 gap-4">
           <Button
             variant="outline"
-            className="w-full rounded-full px-6 py-4 text-xs"
-            onClick={() => signIn('google', { callbackUrl: '/home' })}
+            className="w-full border-black rounded-full px-6 py-4 text-xs"
           >
             <Image
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg"
@@ -80,8 +74,7 @@ export default function LoginPage() {
           </Button>
           <Button
             variant="outline"
-            className="w-full rounded-full px-6 py-4 text-xs"
-            onClick={() => signIn('linkedin', { callbackUrl: '/home' })}
+            className="w-full border-black rounded-full px-6 py-4 text-xs"
           >
             <Image
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg"
@@ -95,7 +88,7 @@ export default function LoginPage() {
         </div>
         <div className="flex w-full py-2 pb-4 items-center justify-center">
           <Separator className="w-20 text-black" />
-          <span className="bg-background text-xs px-6 text-muted-foreground">
+          <span className="text-xs px-6 text-muted-foreground">
             or Sign in with
           </span>
           <Separator className="w-20 text-black" />
@@ -113,7 +106,7 @@ export default function LoginPage() {
               <Check className="absolute right-3 top-6 transform -translate-y-1/2 text-green-500" />
             )}
           </div>
-          <p className="text-[0.5rem] w-56 text-muted-foreground text-center mb-4">
+          <p className="text-[9px] w-60 text-muted-foreground text-center mb-4">
             We&apos;ll text you to confirm your number. Standard message and
             data rates apply. Privacy Policy and T&C.
           </p>

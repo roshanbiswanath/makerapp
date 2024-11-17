@@ -7,7 +7,6 @@ import { Loader2 } from 'lucide-react';
 import AuthCard from '@/components/auth-card';
 import { useSignupStore } from '@/lib/store';
 import { Separator } from '@/components/ui/separator';
-import { updateSignupData } from '@/app/auth';
 
 const industries = [
   'Energy',
@@ -24,15 +23,13 @@ const industries = [
 export default function IndustryPage() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { userId, industry, setIndustry } = useSignupStore();
+  const { industry, setIndustry, firstName } = useSignupStore();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
 
     try {
-      await updateSignupData(userId, { industry });
-
       router.push('/auth/signup/purpose');
     } catch (error) {
       console.error('Update error:', error);
@@ -43,15 +40,15 @@ export default function IndustryPage() {
 
   return (
     <AuthCard
-      title="What industry are you in?"
-      description="This helps us tailor your experience"
+      title="What industry are you from?"
+      description={`Hey ${firstName}! You're just a few steps away from setting up your Karkhana account`}
       onClose={() => router.push('/auth/signup/user-type')}
     >
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-8 px-2">
         <div className="flex gap-x-4 items-center justify-center">
-          <div className="text-xs text-gray-900">STEP 1</div>
+          <div className="text-xs text-gray-900 font-semibold">STEP 1</div>
           <Separator className="w-12 bg-black" />
-          <div className="text-xs text-gray-900">STEP 2</div>
+          <div className="text-xs text-gray-900 font-semibold">STEP 2</div>
           <Separator className="w-12 bg-gradient-to-r from-black" />
           <div className="text-xs text-gray-400">STEP 3</div>
         </div>

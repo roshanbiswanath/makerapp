@@ -6,48 +6,28 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader2 } from 'lucide-react';
 import AuthCard from '@/components/auth-card';
-import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function NewPasswordPage() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const {data: session, update} = useSession();
-
-  if (!session) {
-    router.push('/auth/login');
-    return null;
-  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
 
-    if (newPassword !== confirmPassword) {
-      console.error('Passwords do not match');
-      setIsLoading(false);
-      return;
-    }
-
     try {
-      // Update the user's password
-      const response = await fetch('/api/auth/change-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ newPassword }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to change password');
+      if (newPassword !== confirmPassword) {
+        console.error('Passwords do not match');
+        setIsLoading(false);
+        return;
       }
-
-      // Update the session
-      await update();
 
       console.log('Password changed successfully');
 
-      router.push('/auth/login/password-changed');
+      router.push('/auth/reset/password-changed');
     } catch (error) {
       console.error('Password change error:', error);
     } finally {
@@ -57,11 +37,16 @@ export default function NewPasswordPage() {
 
   return (
     <AuthCard
-      title="Set New Password"
+      title="Set a New Password"
       description="Your new password must be different from previously used passwords."
+      footerContent={
+        <Link href="/auth/login" className="underline font-medium">
+          Back to Login
+        </Link>
+      }
       onClose={() => router.push('/')}
     >
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-8 px-8">
         <div className="space-y-4 my-6">
           <div className="text-start">
             <label htmlFor="newPassword" className="text-sm font-semibold pl-3">
@@ -98,7 +83,7 @@ export default function NewPasswordPage() {
         </div>
         <Button
           type="submit"
-          className="rounded-full px-10 py-4 w-full"
+          className="rounded-full px-10 py-4 mx-auto"
           disabled={
             isLoading ||
             !newPassword ||

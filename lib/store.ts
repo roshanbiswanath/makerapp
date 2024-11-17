@@ -1,5 +1,3 @@
-// lib/store.ts
-
 import { create } from 'zustand';
 
 interface CityState {
@@ -8,7 +6,7 @@ interface CityState {
 }
 
 export const useCityStore = create<CityState>((set) => ({
-  selectedCity: 'Select Location',
+  selectedCity: 'Location',
   setSelectedCity: (city) => set({ selectedCity: city }),
 }));
 
@@ -22,7 +20,6 @@ interface AuthState {
   setIsValidPhone: (isValid: boolean) => void;
   setOtpTimer: (timer: number) => void;
 }
-
 
 export const useAuthStore = create<AuthState>((set) => ({
   loginIdentifier: '',
