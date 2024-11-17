@@ -342,7 +342,7 @@ export default function SpaceSubmissionFlow() {
                     htmlFor="incharge"
                     className="pl-4 text-base font-normal text-gray-600"
                   >
-                    Space incharge's name*
+                    Space incharge&apos;s name*
                   </Label>
                   <div className="relative">
                     <Input
@@ -727,7 +727,7 @@ export default function SpaceSubmissionFlow() {
 
                 <div className="flex flex-col items-center text-center space-y-4">
                   <Label className="text-base font-normal text-gray-600">
-                    Upload organisation's logo (Optional)
+                    Upload organisation&apos;s logo (Optional)
                   </Label>
                   <div className="w-32 h-32 rounded-full border-2 border-dashed border-gray-400 flex items-center justify-center cursor-pointer hover:border-gray-300 transition-colors">
                     <Plus className="w-8 h-8 text-gray-300" />

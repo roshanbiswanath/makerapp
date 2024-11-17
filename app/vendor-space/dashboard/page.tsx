@@ -1,9 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { Bell, ChevronDown, Search, Menu } from 'lucide-react';
+import { Bell, ChevronDown, Search } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import {
   Collapsible,
   CollapsibleContent,
@@ -24,8 +23,6 @@ import Footer from '@/components/footer';
 import { Separator } from '@/components/ui/separator';
 
 export default function Page() {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(true);
-
   const sections = [
     { id: 1, title: 'Basic Details' },
     { id: 2, title: 'Rooms and Seats' },
@@ -177,7 +174,7 @@ export default function Page() {
               </Collapsible>
             ))}
           </div>
-          <Separator className='mt-4' />
+          <Separator className="mt-4" />
         </section>
       </main>
       <Footer />

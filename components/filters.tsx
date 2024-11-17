@@ -44,7 +44,7 @@ export function Filters({
   const displayedBrands = showMore ? brands : brands.slice(0, 6);
 
   return (
-    <div className='-mt-12'>
+    <div className="-mt-12">
       <div className="p-2 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <SlidersHorizontal className="h-5 w-5" />

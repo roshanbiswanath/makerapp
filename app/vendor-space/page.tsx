@@ -183,7 +183,9 @@ export default function footer() {
                     <AccordionTrigger className="text-lg md:text-xl font-medium text-start hover:no-underline">
                       {faq.question}
                     </AccordionTrigger>
-                    <div className='mb-4 -mt-2 text-sm text-gray-400'>{faq.preview}</div>
+                    <div className="mb-4 -mt-2 text-sm text-gray-400">
+                      {faq.preview}
+                    </div>
                     <AccordionContent className="text-gray-700 mb-4">
                       {faq.answer}
                     </AccordionContent>

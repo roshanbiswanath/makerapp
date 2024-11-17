@@ -4,12 +4,7 @@ import CategoryScroll from '@/components/category-scroll';
 import Footer from '@/components/footer';
 import TopBar from '@/components/top-bar';
 import { Button } from '@/components/ui/button';
-import {
-  ArrowUpDown,
-  Calendar,
-  SlidersHorizontal,
-  Star,
-} from 'lucide-react';
+import { ArrowUpDown, Calendar, SlidersHorizontal, Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
