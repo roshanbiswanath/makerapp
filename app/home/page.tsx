@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import {
   ArrowUpDown,
   Calendar,
-  Filter,
   SlidersHorizontal,
   Star,
 } from 'lucide-react';
@@ -174,7 +173,7 @@ export default function Page() {
         <section className="my-16 flex flex-col md:flex-row justify-between gap-x-24">
           <div className="md:w-1/3 py-10 flex flex-col items-start justify-between">
             <article>
-              <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+              <h2 className="text-2xl sm:text-4xl font-bold mb-4">
                 Discover a Global Network of 5000+ Maker Spaces
               </h2>
               <p className="text-gray-600 mb-4 max-w-56">

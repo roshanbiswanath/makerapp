@@ -60,7 +60,7 @@ export default function TopBar({
     >
       <div className="flex flex-wrap items-center justify-between">
         <div className="flex items-center space-x-4">
-          <Link href="/" className="font-bold -mt-3">
+          <Link href="/home" className="font-bold -mt-3">
             <svg
               width="116"
               height="35"
