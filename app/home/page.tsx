@@ -12,10 +12,14 @@ import { Filters } from '@/components/filters';
 import { sortOptions } from '@/lib/constants';
 import { Separator } from '@/components/ui/separator';
 import { Checkbox } from '@/components/ui/checkbox';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 
 export default function Page() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen min-w-screen bg-white">
@@ -58,20 +62,20 @@ export default function Page() {
 
         <section className="my-6">
           <div className="flex items-center justify-end gap-x-2 pb-4 p-1">
-            <div
-              onClick={() => setModalOpen(!modalOpen)}
-              className="cursor-pointer px-2 rounded-xl relative hover:bg-gray-200 space-x-2"
-            >
-              <ArrowUpDown className="h-4 w-4 inline-block" />
-              <span className="text-sm">Sort</span>
-            </div>
-            {modalOpen && (
-              <div
-                className={`absolute -bottom-28 border bg-white shadow-lg rounded-xl p-6`}
-              >
-                <div className="flex pb-4">
-                  <ArrowUpDown className="h-5 w-5" />
-                  <p>Sort By</p>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="gap-2 border-none shadow-none rounded-full hover:bg-gray-100"
+                >
+                  <ArrowUpDown className="h-4 w-4" />
+                  Sort
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-56 p-4 rounded-2xl">
+                <div className="flex items-center pb-4">
+                  <ArrowUpDown className="h-5 w-5 mr-2" />
+                  <p className="font-medium">Sort By</p>
                 </div>
                 <Separator className="mb-2" />
                 {sortOptions.map((option) => (
@@ -82,25 +86,30 @@ export default function Page() {
                     <Checkbox
                       id={option.id}
                       value={option.id}
-                      className="h-5 w-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500 data-[state=checked]:bg-orange-500"
+                      className="h-5 w-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500"
                     />
-                    <p
-                      key={option.id}
-                      className="text-base font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    <label
+                      htmlFor={option.id}
+                      className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
                       {option.label}
-                    </p>
+                    </label>
                   </div>
                 ))}
-              </div>
+              </PopoverContent>
+            </Popover>
+            {isFilterOpen ? (
+              <></>
+            ) : (
+              <Button
+                onClick={() => setIsFilterOpen(true)}
+                variant="ghost"
+                className="gap-2 rounded-full hover:bg-gray-100"
+              >
+                <SlidersHorizontal className="h-4 w-4" />
+                Filter
+              </Button>
             )}
-            <div
-              onClick={() => setIsFilterOpen(true)}
-              className={`${isFilterOpen ? 'hidden' : 'block'} cursor-pointer px-2 rounded-xl hover:bg-gray-200 space-x-2`}
-            >
-              <SlidersHorizontal className="h-4 w-4 inline-block" />
-              <span className="text-sm">Filter</span>
-            </div>
           </div>
           <div className="flex gap-x-4">
             {isFilterOpen && (
@@ -146,12 +155,14 @@ export default function Page() {
                           Show More
                         </Link>
                       </div>
-                      <Button
-                        variant="default"
-                        className="rounded-lg px-6 hover:bg-green-500 hover:text-black"
-                      >
-                        <span className="text-xs">BOOK NOW</span>
-                      </Button>
+                      <Link href="/home/book">
+                        <Button
+                          variant="default"
+                          className="rounded-lg px-6 hover:bg-green-500 hover:text-black"
+                        >
+                          <span className="text-xs">BOOK NOW</span>
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </div>
