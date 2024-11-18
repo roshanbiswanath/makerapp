@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import * as React from 'react';
@@ -50,7 +51,6 @@ export default function Sidebar() {
 
   return (
     <div className="min-h-screen ">
-      
       <main className="flex gap-x-8 items-start">
         <aside className="h-[80vh] mt-32 w-[25vh] bg-blue-500 w-1/6 ml-8 rounded-3xl mb-6 pt-4 pb-4 pl-8 flex flex-col justify-between">
           <div>
@@ -112,10 +112,7 @@ export default function Sidebar() {
             </div>
           </div>
         </aside>
-
-        
       </main>
-      
     </div>
   );
 }
