@@ -23,6 +23,20 @@ import MembershipsPage from './(pages)/membership';
 import MySpacePage from './(pages)/my-space';
 import RevenuePage from './(pages)/revenue';
 import MessagesPage from './(pages)/messages';
+import {
+  Settings,
+  User,
+  HelpCircle,
+  Globe,
+  CreditCard,
+  LayoutDashboard,
+} from 'lucide-react';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { Button } from '@/components/ui/button';
 
 export default function Page() {
   const [activePage, setActivePage] = React.useState('My Space');
@@ -61,9 +75,36 @@ export default function Page() {
         return <MySpacePage />;
     }
   };
+
+  const [openPopover, setOpenPopover] = React.useState<
+    'notifications' | 'profile' | null
+  >(null);
+
+  const notifications = [
+    {
+      title: 'Simran Arora sent you a message.',
+      time: '4 hrs ago',
+    },
+    {
+      title: 'You have a new booking request',
+      time: '4 hrs ago',
+    },
+  ];
+
+  const menuItems = [
+    { label: 'Dashboard', icon: LayoutDashboard },
+    { label: 'All Bookings', icon: LayoutDashboard },
+    { label: 'Profile', icon: User },
+    { label: 'Account', icon: User },
+    { label: 'Language', icon: Globe },
+    { label: 'INR', icon: CreditCard },
+    { label: 'Help Centre', icon: HelpCircle },
+    { label: 'Settings', icon: Settings },
+  ];
+
   return (
     <div className="min-h-screen bg-white">
-      <header className="flex items-center justify-between px-10 p-4">
+      <header className="flex items-center justify-between px-12 p-6 mb-4">
         <Link href="/" className="flex items-center">
           <Image
             src="/logo.svg"
@@ -74,13 +115,69 @@ export default function Page() {
           />
         </Link>
         <div className="flex items-center gap-x-4">
-          <Bell className="h-4 w-4" />
-          <Avatar>
-            <AvatarImage src="https://randomuser.me/api/portraits" />
-            <AvatarFallback>
-              <Search className="h-4 w-4" />
-            </AvatarFallback>
-          </Avatar>
+          <Popover
+            open={openPopover === 'notifications'}
+            onOpenChange={(open) =>
+              setOpenPopover(open ? 'notifications' : null)
+            }
+          >
+            <PopoverTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8">
+                <Bell className="h-4 w-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80 p-0 rounded-2xl" align="end">
+              <div className="p-4">
+                <h3 className="font-semibold">Notifications</h3>
+              </div>
+              <Separator />
+              <div className="space-y-2 p-2">
+                {notifications.map((notification, index) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 rounded-lg p-2 hover:bg-gray-100 cursor-pointer"
+                  >
+                    <div className="h-2 w-2 mt-2 rounded-full bg-gray-400" />
+                    <div className="flex-1">
+                      <p className="text-sm">{notification.title}</p>
+                      <p className="text-xs text-gray-500">
+                        {notification.time}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
+
+          <Popover
+            open={openPopover === 'profile'}
+            onOpenChange={(open) => setOpenPopover(open ? 'profile' : null)}
+          >
+            <PopoverTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8">
+                <Avatar>
+                  <AvatarImage src="https://randomuser.me/api/portraits" />
+                  <AvatarFallback>U</AvatarFallback>
+                </Avatar>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-56 p-2 rounded-2xl" align="end">
+              {menuItems.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <Button
+                    key={index}
+                    variant="ghost"
+                    className="w-full justify-start gap-2 rounded-lg"
+                  >
+                    <Icon className="h-4 w-4" />
+                    {item.label}
+                  </Button>
+                );
+              })}
+            </PopoverContent>
+          </Popover>
         </div>
       </header>
       <main className="flex gap-x-8 items-start">
