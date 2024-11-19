@@ -21,15 +21,17 @@ import {
   Coffee,
   Car,
   Building2,
-  MoreVertical,
   Star,
   MapPin,
   Clock,
   ThumbsUp,
+  MessageCircle,
 } from 'lucide-react';
 import TopBar from '@/components/top-bar';
 import { Separator } from '@radix-ui/react-separator';
 import Image from 'next/image';
+import Footer from '@/components/footer';
+import Link from 'next/link';
 
 export default function LabSpacePage() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
@@ -114,6 +116,18 @@ export default function LabSpacePage() {
       text: 'It was a pleasant experience working at the space. Everything was just great. Machine, staff, service, cleanliness all graded 5/5! Medical kit Single use items were very helpful.',
       image: '/placeholder.svg',
     },
+    {
+      author: 'Pratham Raj',
+      rating: 4.5,
+      text: 'It was a pleasant experience working at the space. Everything was just great. Machine, staff, service, cleanliness all graded 5/5! Medical kit Single use items were very helpful.',
+      image: '/placeholder.svg',
+    },
+    {
+      author: 'Sarit Moranth',
+      rating: 4.5,
+      text: 'It was a pleasant experience working at the space. Everything was just great. Machine, staff, service, cleanliness all graded 5/5! Medical kit Single use items were very helpful.',
+      image: '/placeholder.svg',
+    },
   ];
 
   return (
@@ -154,19 +168,19 @@ export default function LabSpacePage() {
           <TabsList className="border-b w-full justify-start h-auto p-0 bg-transparent">
             <TabsTrigger
               value="machines"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:bg-transparent"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:bg-gray-100"
             >
               Machines
             </TabsTrigger>
             <TabsTrigger
               value="memberships"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:bg-transparent"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:bg-gray-100"
             >
               Memberships
             </TabsTrigger>
             <TabsTrigger
               value="events"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:bg-transparent"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:bg-gray-100"
             >
               Events
             </TabsTrigger>
@@ -188,37 +202,69 @@ export default function LabSpacePage() {
         </ScrollArea>
 
         <div className="grid grid-cols-3 gap-8">
-          <div className="col-span-2">
-            <div className="space-y-6 mb-12">
-              {machines.map((machine, index) => (
-                <div key={index} className="flex gap-4">
-                  <div className="w-32 h-24 bg-gray-100 rounded-lg" />
-                  <div className="flex-1">
-                    <div className="flex justify-between items-start">
-                      <h3 className="font-medium">{machine.name}</h3>
-                      <p className="text-sm">Rs {machine.price}</p>
+          <div className="col-span-3">
+            <div className="flex gap-x-4 items-start justify-between">
+              <div className="max-w-4xl">
+                <div className="space-y-6 mb-12">
+                  {machines.map((machine, index) => (
+                    <div key={index} className="flex gap-4">
+                      <div className="w-32 h-24 bg-gray-100 rounded-lg" />
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start">
+                          <h3 className="font-medium">{machine.name}</h3>
+                          <p className="text-sm">Rs {machine.price}</p>
+                        </div>
+                        <p className="text-sm text-gray-600 mt-1">
+                          {machine.description}
+                        </p>
+                      </div>
                     </div>
-                    <p className="text-sm text-gray-600 mt-1">
-                      {machine.description}
-                    </p>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            <hr className="mb-4" />
-            <div className="mb-12 pl-4">
-              <h2 className="text-lg font-medium mb-4">About SQA FAB Lab</h2>
-              <p className="text-sm text-gray-600 mb-4 ml-4">
-                We work together to build an impactful learning community where
-                students are given the opportunity to engage in new experiences,
-                develop their skills, and ignite curiosity. We welcome the
-                diverse community into a FAB lab inclusive of culture and
-                perspectives. We are committed to providing a safe and inclusive
-                environment and continue to foster this community through access
-                to peer support, training, diverse entrepreneurship, networking
-                opportunities, and resources to turn ideas into reality.
-              </p>
+                <hr className="mb-4" />
+                <div className="mb-12 pl-4">
+                  <h2 className="text-lg font-medium mb-4">
+                    About SQA FAB Lab
+                  </h2>
+                  <p className="text-sm text-gray-600 mb-4 ml-4">
+                    We work together to build an impactful learning community
+                    where students are given the opportunity to engage in new
+                    experiences, develop their skills, and ignite curiosity. We
+                    welcome the diverse community into a FAB lab inclusive of
+                    culture and perspectives. We are committed to providing a
+                    safe and inclusive environment and continue to foster this
+                    community through access to peer support, training, diverse
+                    entrepreneurship, networking opportunities, and resources to
+                    turn ideas into reality.
+                  </p>
+                </div>
+              </div>
+              <div className="space-y-6 -mt-8">
+                <Card className="p-6">
+                  <div className="text-center mb-6">
+                    <p className="text-2xl font-semibold mb-1">Rs 500 / hr</p>
+                    <p className="text-sm text-gray-600">June 2024</p>
+                  </div>
+
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    className="mb-6"
+                  />
+
+                  <div className="flex justify-between text-sm text-gray-600 mb-6 px-10">
+                    <span>9:00 am</span>
+                    <span>to</span>
+                    <span>6:00 pm</span>
+                  </div>
+
+                  <Button className="w-full">
+                    <Link href="/home/book/payment">Request to Book</Link>
+                  </Button>
+                </Card>
+              </div>
             </div>
 
             <hr className="mb-4" />
@@ -235,18 +281,21 @@ export default function LabSpacePage() {
                 ))}
               </div>
             </div>
-            <hr className="mb-4" />
 
+            <hr className="mb-4" />
             <div className="mb-12 ml-4">
               <h2 className="text-lg font-medium mb-4">Lab Facilitators</h2>
               <div className="flex gap-8 ml-4">
                 {facilitators.map((facilitator, index) => (
-                  <div key={index} className="text-center">
+                  <div
+                    key={index}
+                    className="text-center flex flex-col items-center justify-center"
+                  >
                     <Avatar className="h-20 w-20 mb-2">
                       <AvatarImage src={facilitator.image} />
                       <AvatarFallback>SN</AvatarFallback>
                     </Avatar>
-                    <p className="font-medium text-sm">{facilitator.name}</p>
+                    <p className="font-semibold text-sm">{facilitator.name}</p>
                     <p className="text-sm text-gray-600">{facilitator.role}</p>
                   </div>
                 ))}
@@ -255,15 +304,13 @@ export default function LabSpacePage() {
 
             <hr className="mb-4" />
             <div className="mb-12">
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2 mb-4 ml-4 ">
                 <Star className="h-4 w-4" />
-                <h2 className="text-lg font-medium">4.5</h2>
-                <span className="text-sm text-gray-600">
-                  Ratings and Reviews
-                </span>
+                <h2 className="text-lg font-semibold">4.5</h2>
+                <span className="text-sm font-bold">Ratings and Reviews</span>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="grid grid-cols-4 gap-4 my-8 ml-8">
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4" />
                   <span className="text-sm">Location</span>
@@ -286,9 +333,9 @@ export default function LabSpacePage() {
                 </div>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-6 grid grid-cols-2 ml-10">
                 {reviews.map((review, index) => (
-                  <div key={index} className="flex gap-4">
+                  <div key={index} className="flex gap-4 max-w-md items-start">
                     <Avatar>
                       <AvatarImage src={review.image} />
                       <AvatarFallback>PR</AvatarFallback>
@@ -304,64 +351,53 @@ export default function LabSpacePage() {
 
             <hr className="mb-4" />
             <div className="mb-12">
-              <h2 className="text-lg font-medium mb-4">Contact the Lab</h2>
-              <div className="grid grid-cols-2 gap-8">
+              <h2 className="text-xl font-semibold mb-4">Contact the Lab</h2>
+              <div className="flex items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-sm font-medium mb-2">Location</h3>
-                  <p className="text-sm text-gray-600">
+                  <h3 className="text-md font-medium mb-2 flex gap-x-1 items-center">
+                    <MapPin className="h-4 w-4 inline-block" />
+                    <span>Location</span>
+                  </h3>
+                  <p className="text-sm text-gray-600 ml-2">
                     SQA University Campus 1, Khandagiri,
                     <br />
                     Bhubaneswar, Odisha - 751030
                   </p>
 
-                  <h3 className="text-sm font-medium mt-4 mb-2">
-                    How to reach us
+                  <h3 className="text-md font-medium mt-4 mb-2 flex gap-x-1 items-center">
+                    <Star className="h-4 w-4 inline-block" />
+                    <span>How to reach us</span>
                   </h3>
-                  <ul className="text-sm text-gray-600 space-y-1">
+                  <ul className="text-sm text-gray-600 space-y-1 ml-2">
                     <li>2km from Bhubaneswar airport</li>
                     <li>5km from Bhubaneswar Railway Station</li>
                     <li>1km from Khandagiri metro station</li>
                     <li>2km from Municipal metro station</li>
                   </ul>
+
+                  <h3 className="text-md font-medium mt-4 mb-2 flex gap-x-1 items-center">
+                    <MessageCircle className="h-4 w-4 inline-block" />
+                    <span>Chat with Lab</span>
+                  </h3>
                 </div>
-                <div className="bg-yellow-100 rounded-2xl py-1 px-4">
-                  <Image
-                    src="/world.svg"
-                    alt="World Map"
-                    width={600}
-                    height={400}
-                    className="w-full h-auto"
-                  />
+                <div className="flex flex-col gap-y-2 items-center">
+                  <div className="bg-yellow-100 rounded-2xl py-1 px-4">
+                    <Image
+                      src="/world.svg"
+                      alt="World Map"
+                      width={600}
+                      height={400}
+                      className="w-full h-auto"
+                    />
+                  </div>
+                  <Link href="/home/chat">Find On Map →</Link>
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="space-y-6">
-            <Card className="p-6">
-              <div className="text-center mb-6">
-                <p className="text-2xl font-semibold mb-1">Rs 500 / hr</p>
-                <p className="text-sm text-gray-600">June 2024</p>
-              </div>
-
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                className="mb-6"
-              />
-
-              <div className="flex justify-between text-sm text-gray-600 mb-6">
-                <span>9:00 am</span>
-                <span>to</span>
-                <span>6:00 pm</span>
-              </div>
-
-              <Button className="w-full">Request to Book</Button>
-            </Card>
-          </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
