@@ -36,7 +36,7 @@ export default function EmailLoginPage() {
           </Link>
         </p>
       }
-      onClose={() => router.push('/')}
+      onClose={() => router.push('/auth')}
     >
       <form onSubmit={handleSubmit} className="space-y-8 px-8">
         <div className="space-y-2 text-start">

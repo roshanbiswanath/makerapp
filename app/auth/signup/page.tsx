@@ -49,7 +49,7 @@ export default function SignupPage() {
           </Link>
         </p>
       }
-      onClose={() => router.push('/')}
+      onClose={() => router.push('/auth')}
     >
       <form onSubmit={handleSubmit} className="space-y-4 px-8">
         <div className="relative">
