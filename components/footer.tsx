@@ -60,7 +60,7 @@ export default function Footer() {
           <div className="flex sm:flex-row justify-between items-center sm:items-start sm:gap-x-32 gap-x-4">
             <Button
               variant="secondary"
-              className="rounded-lg px-8 py-4 bg-white text-black font-semibold text-xs w-full sm:w-auto"
+              className="rounded-lg px-8 py-6 bg-white text-black font-semibold text-xs w-full sm:w-auto"
             >
               List Your Machines
             </Button>
