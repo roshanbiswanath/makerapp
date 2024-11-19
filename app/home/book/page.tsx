@@ -390,7 +390,18 @@ export default function LabSpacePage() {
                       className="w-full h-auto"
                     />
                   </div>
-                  <Link href="/home/chat">Find On Map →</Link>
+                  <Button
+                    variant="link"
+                    className="text-lg"
+                    onClick={() =>
+                      window.open(
+                        'https://maps.app.goo.gl/qjaRb4rr4dzq64NY7',
+                        '_blank'
+                      )
+                    }
+                  >
+                    Find on Map →
+                  </Button>{' '}
                 </div>
               </div>
             </div>

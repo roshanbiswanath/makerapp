@@ -25,7 +25,6 @@ import {
 import Image from 'next/image';
 import TopBar from '@/components/top-bar';
 import Footer from '@/components/footer';
-import Link from 'next/link';
 
 type BookingState =
   | 'initial'
@@ -323,7 +322,7 @@ export default function BookingFlow() {
   return (
     <div className="min-h-screen bg-gray-50">
       <TopBar theme="light" />
-      <div className="max-w-7xl h-screen flex flex-col items-center justify-center mx-auto">
+      <div className="max-w-7xl pt-20 flex flex-col items-center justify-center mx-auto">
         {bookingState === 'initial' && renderInitialForm()}
         {['loading', 'failed', 'success'].includes(bookingState) &&
           renderPaymentStatus()}
@@ -374,7 +373,15 @@ export default function BookingFlow() {
               className="w-full h-auto"
             />
           </div>
-          <Link href="/home/chat">Find On Map →</Link>
+          <Button
+            variant="link"
+            className="text-lg"
+            onClick={() =>
+              window.open('https://maps.app.goo.gl/qjaRb4rr4dzq64NY7', '_blank')
+            }
+          >
+            Find on Map →
+          </Button>{' '}
         </div>
       </div>
       <Footer />
