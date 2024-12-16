@@ -6,6 +6,8 @@ import { ChevronDown, Search, MapPin, Languages, X, Menu } from 'lucide-react';
 import Image from 'next/image';
 import { useCityStore } from '@/lib/store';
 import { cities } from '@/lib/constants';
+import {useSession} from 'next-auth/react';
+import {signOut} from 'next-auth/react';
 
 export default function TopBar({
   theme = 'dark',
@@ -22,6 +24,10 @@ export default function TopBar({
   const [searchTerm, setSearchTerm] = useState('');
 
   const isDark = theme === 'dark';
+
+
+  const {data: session} = useSession();
+  console.log(session);
 
   const MobileMenu = () => (
     <div
@@ -41,9 +47,16 @@ export default function TopBar({
           </button>
         </Link>
         <div className="flex items-center justify-between px-3">
-          <Link href="/auth" className="block text-center py-2 font-medium">
-            Login | Sign Up
-          </Link>
+          {
+            session ? (
+              <Link href="/auth" className="block text-center py-2 font-medium" onClick={() => signOut()}>
+                Logout
+              </Link>
+            ) : (
+              <Link href="/auth" className="block text-center py-2 font-medium">
+                Login | Sign Up
+              </Link>)
+          }
           <Link href="/auth" className="flex items-center justify-center">
             <Languages className="h-4 w-4" />
             <span className="text-sm">EN</span>
@@ -199,19 +212,33 @@ export default function TopBar({
             </button>
           </Link>
           <div className="flex gap-x-2 items-center justify-center">
+
+          {
+            session?.user? (
+            <>
             <Link
+              href="/dashboard"
+              className={`${isDark ? 'text-white' : 'text-black'} font-medium text-md`}>
+              {session.user.name}
+            </Link>
+            <Image
+            src={session.user.image}
+            alt="Profile"
+            width={30}
+            height={30}
+            className={`rounded-full border-2 ${isDark ? 'border-gray-400' : 'border-black'}`}/>
+            </>
+            ) : (
+              <>
+              <Link
               href="/auth"
               className={`${isDark ? 'text-white' : 'text-black'} font-medium text-md`}
             >
               Login | Sign Up
             </Link>
-            <Image
-              src="/favicon.ico"
-              alt="Profile"
-              width={30}
-              height={30}
-              className={`rounded-full border-2 ${isDark ? 'border-gray-400' : 'border-black'}`}
-            />
+            </>
+          )}
+            
           </div>
         </div>
       </div>

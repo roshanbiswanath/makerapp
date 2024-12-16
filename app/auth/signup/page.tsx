@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,12 +11,17 @@ import Link from 'next/link';
 import { useSignupStore } from '@/lib/store';
 import AuthCard from '@/components/auth-card';
 
+import {signIn} from 'next-auth/react';
+
+import {useSearchParams} from 'next/navigation';
+
 export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
-  const { email, password, setEmail, setPassword } = useSignupStore();
+  const { email, password, setEmail, setPassword, setFirstName, setLastName } = useSignupStore();
   const router = useRouter();
+  const searchParams = useSearchParams(); 
 
   const validateEmail = (input: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -36,6 +41,19 @@ export default function SignupPage() {
     setIsLoading(false);
     router.push('/auth/signup/name');
   };
+
+  useEffect(() => {
+    if (searchParams.get('email')) {
+      setEmail(searchParams.get('email'));
+      validateEmail(searchParams.get('email'));
+    }
+    if(searchParams.get('firstName')){
+      setFirstName(searchParams.get('firstName'));
+    }
+    if(searchParams.get('lastName')){
+      setLastName(searchParams.get('lastName'));
+    }
+  }, []);
 
   return (
     <AuthCard
@@ -93,6 +111,7 @@ export default function SignupPage() {
           <Button
             variant="outline"
             className="w-full border-black rounded-full px-6 py-4 text-xs"
+            onClick={() => signIn('google')}
           >
             <Image
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg"
@@ -106,6 +125,7 @@ export default function SignupPage() {
           <Button
             variant="outline"
             className="w-full border-black rounded-full px-6 py-4 text-xs"
+            onClick={() => signIn('linkedin')}
           >
             <Image
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg"

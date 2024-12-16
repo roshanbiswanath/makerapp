@@ -24,10 +24,10 @@ export default function PurposePage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsLoading(true);
+    // setIsLoading(true);
 
     try {
-      router.push('/home/onboarding');
+      router.push('/auth/signup/onboarding');
     } catch (error) {
       console.error('Update error:', error);
     } finally {
