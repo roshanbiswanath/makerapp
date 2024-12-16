@@ -19,6 +19,24 @@ export default function ForgotPasswordPage() {
     e.preventDefault();
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      const response = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: loginIdentifier }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send reset email');
+      }
+
+      setIsSubmitted(true);
+    } catch (err) {
+      // setError('Failed to send reset email. Please try again.');
+      console.log(err)
+    } finally {
+      setIsLoading(false);
+    }
     setIsLoading(false);
     setIsSubmitted(true);
   };

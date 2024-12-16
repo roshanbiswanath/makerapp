@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader2 } from 'lucide-react';
@@ -12,24 +12,38 @@ export default function NewPasswordPage() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
+    setError('');
 
     try {
       if (newPassword !== confirmPassword) {
-        console.error('Passwords do not match');
-        setIsLoading(false);
+        setError('Passwords do not match');
         return;
       }
 
-      console.log('Password changed successfully');
+      const response = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          token,
+          newPassword
+        }),
+      });
 
-      router.push('/auth/reset/password-changed');
-    } catch (error) {
-      console.error('Password change error:', error);
+      if (!response.ok) {
+        throw new Error('Failed to reset password');
+      }
+
+      router.push('/auth/login');
+    } catch (err) {
+      setError('Failed to reset password. Please try again.');
     } finally {
       setIsLoading(false);
     }
