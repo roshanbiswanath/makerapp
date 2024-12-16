@@ -55,7 +55,7 @@ export default function LoginPage() {
           </Link>
         </p>
       }
-      onClose={() => router.push('/')}
+      onClose={() => router.push('/home')}
     >
       <div className="space-y-6 px-8 mt-6">
         <div className="grid grid-cols-2 gap-4">

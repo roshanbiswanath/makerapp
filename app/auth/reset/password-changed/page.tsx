@@ -18,14 +18,14 @@ export default function PasswordChangedPage() {
           Back to Login
         </Link>
       }
-      onClose={() => router.push('/')}
+      onClose={() => router.push('/home')}
     >
       <div className="flex flex-col items-center">
         <div className="w-44 h-44 rounded-full border-dashed border-2 border-black flex items-center justify-center my-14">
           <Check className="w-24 h-24 text-green-300" />
         </div>
         <Button
-          onClick={() => router.push('/auth/login')}
+          onClick={() => router.push('/')}
           className="rounded-full px-14 py-4"
         >
           Continue

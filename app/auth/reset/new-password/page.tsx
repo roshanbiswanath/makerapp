@@ -44,7 +44,7 @@ export default function NewPasswordPage() {
           Back to Login
         </Link>
       }
-      onClose={() => router.push('/')}
+      onClose={() => router.push('/home')}
     >
       <form onSubmit={handleSubmit} className="space-y-8 px-8">
         <div className="space-y-4 my-6">

@@ -36,11 +36,11 @@ export default function ForgotPasswordPage() {
           : "No worries, we'll send you reset email."
       }
       footerContent={
-        <Link href="/auth/signup" className="underline font-medium">
+        <Link href="/auth/login" className="underline font-medium">
           Back to Login
         </Link>
       }
-      onClose={() => router.push('/')}
+      onClose={() => router.push('/auth/login/email-login')}
     >
       <form onSubmit={handleSubmit} className="space-y-12 px-8">
         <div className="space-y-4 mt-6">
