@@ -13,7 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import {
   Select,
   SelectContent,
@@ -23,7 +23,6 @@ import {
 } from '@/components/ui/select';
 
 interface FormData {
-  uniqueLink: string | string[];
   type: 'independent' | 'institution' | null;
   purposes: ('rent' | 'membership' | 'events')[];
   spaceDetails: {
@@ -56,10 +55,8 @@ interface FormData {
 
 export default function SpaceSubmissionFlow() {
   const router = useRouter();
-  const { uniqueId } = useParams();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
-    uniqueLink: uniqueId,
     type: null,
     purposes: [],
     spaceDetails: {
@@ -104,7 +101,6 @@ export default function SpaceSubmissionFlow() {
         const formDataToSend = new FormData();
 
         // Append non-file data
-        formDataToSend.append('uniqueLink', formData.uniqueLink as string);
         formDataToSend.append('type', formData.type || '');
         formDataToSend.append('purposes', JSON.stringify(formData.purposes));
         formDataToSend.append(
@@ -123,18 +119,14 @@ export default function SpaceSubmissionFlow() {
         if (formData.media.orgLogo) {
           formDataToSend.append('orgLogo', formData.media.orgLogo);
         }
-        console.log('formDataToSend:', formDataToSend);
 
-        const response = await fetch(
-          'http://localhost:3001/api/vendor/complete-onboarding',
-          {
-            method: 'POST',
-            body: formDataToSend,
-          }
-        );
+        const response = await fetch('/api/submit-space', {
+          method: 'POST',
+          body: formDataToSend,
+        });
 
         if (response.ok) {
-          router.push(`/vendor-space/${currentStep}/dashboard`);
+          router.push(`/vendor-space/dashboard`);
         } else {
           // Handle error
           console.error('Failed to submit space data');
@@ -823,18 +815,17 @@ export default function SpaceSubmissionFlow() {
                     >
                       {formData.media.images[index] ? (
                         <>
-                          <Image
+                          <img
                             src={URL.createObjectURL(
                               formData.media.images[index]
                             )}
                             alt={`Space image ${index + 1}`}
-                            className="object-cover rounded-2xl"
-                            layout="fill"
+                            className="w-full h-full object-cover rounded-2xl"
                           />
                           <button
-                            type="button"
+                            type='button'
                             onClick={() => removeImage(index)}
-                            className="absolute top-2 right-2 bg-red-500 text-white rounded-2xl p-1"
+                            className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1"
                           >
                             <X className="w-4 h-4" />
                           </button>
@@ -897,12 +888,15 @@ export default function SpaceSubmissionFlow() {
                   <Label className="text-base font-normal text-gray-600">
                     Upload organisation&apos;s logo (Optional)
                   </Label>
-                  <label className="w-32 h-32 rounded-full border-2 border-dashed border-gray-400 flex items-center justify-center cursor-pointer hover:border-gray-300 transition-colors">
+                  <label
+                    className={`w-32 h-32 rounded-full border-2 border-dashed ${formData.type === 'independent' ? 'border-gray-200 cursor-not-allowed' : 'border-gray-400 cursor-pointer hover:border-gray-300'} flex items-center justify-center transition-colors`}
+                  >
                     <input
                       type="file"
                       accept="image/*"
                       onChange={(e) => handleFileUpload(e, 'orgLogo')}
                       className="hidden"
+                      disabled={formData.type === 'independent'}
                     />
                     {formData.media.orgLogo ? (
                       <img
@@ -911,7 +905,9 @@ export default function SpaceSubmissionFlow() {
                         className="w-full h-full object-cover rounded-full"
                       />
                     ) : (
-                      <Plus className="w-8 h-8 text-gray-300" />
+                      <Plus
+                        className={`w-8 h-8 ${formData.type === 'independent' ? 'text-gray-200' : 'text-gray-300'}`}
+                      />
                     )}
                   </label>
                 </div>
