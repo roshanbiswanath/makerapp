@@ -123,11 +123,15 @@ export default function SpaceSubmissionFlow() {
         if (formData.media.orgLogo) {
           formDataToSend.append('orgLogo', formData.media.orgLogo);
         }
+        console.log('formDataToSend:', formDataToSend);
 
-        const response = await fetch('/api/submit-space', {
-          method: 'POST',
-          body: formDataToSend,
-        });
+        const response = await fetch(
+          'http://localhost:3001/api/vendor/complete-onboarding',
+          {
+            method: 'POST',
+            body: formDataToSend,
+          }
+        );
 
         if (response.ok) {
           router.push(`/vendor-space/${currentStep}/dashboard`);
@@ -828,7 +832,7 @@ export default function SpaceSubmissionFlow() {
                             layout="fill"
                           />
                           <button
-                            type='button'
+                            type="button"
                             onClick={() => removeImage(index)}
                             className="absolute top-2 right-2 bg-red-500 text-white rounded-2xl p-1"
                           >
