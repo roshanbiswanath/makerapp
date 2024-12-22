@@ -1,9 +1,7 @@
 'use client';
-import TopBar from '@/components/top-bar';
 import Link from 'next/link';
 import { useSignupStore } from '@/lib/store';
-import {useEffect} from 'react';
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 const styles = {
   scrollContainer: `
     flex
@@ -24,13 +22,11 @@ const styles = {
 };
 
 export default function LandingPage() {
-
   const router = useRouter();
   const signupData = useSignupStore();
   console.log(signupData);
 
   const handleSignup = async () => {
-
     try {
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
@@ -507,4 +503,4 @@ export default function LandingPage() {
       </div>
     </main>
   );
-};
+}

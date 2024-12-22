@@ -1,6 +1,6 @@
 'use client';
 
-import { useState , useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,17 +11,18 @@ import Link from 'next/link';
 import { useSignupStore } from '@/lib/store';
 import AuthCard from '@/components/auth-card';
 
-import {signIn} from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
-import {useSearchParams} from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
-  const { email, password, setEmail, setPassword, setFirstName, setLastName } = useSignupStore();
+  const { email, password, setEmail, setPassword, setFirstName, setLastName } =
+    useSignupStore();
   const router = useRouter();
-  const searchParams = useSearchParams(); 
+  const searchParams = useSearchParams();
 
   const validateEmail = (input: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -47,10 +48,10 @@ export default function SignupPage() {
       setEmail(searchParams.get('email'));
       validateEmail(searchParams.get('email'));
     }
-    if(searchParams.get('firstName')){
+    if (searchParams.get('firstName')) {
       setFirstName(searchParams.get('firstName'));
     }
-    if(searchParams.get('lastName')){
+    if (searchParams.get('lastName')) {
       setLastName(searchParams.get('lastName'));
     }
   }, []);

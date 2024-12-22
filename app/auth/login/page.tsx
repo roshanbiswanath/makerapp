@@ -11,7 +11,7 @@ import { Check, Loader2, MessageCircleMore } from 'lucide-react';
 import AuthCard from '@/components/auth-card';
 import { useAuthStore } from '@/lib/store';
 
-import {signIn} from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);

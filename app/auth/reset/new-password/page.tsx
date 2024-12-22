@@ -12,7 +12,7 @@ export default function NewPasswordPage() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [, setError] = useState('');
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
@@ -33,7 +33,7 @@ export default function NewPasswordPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           token,
-          newPassword
+          newPassword,
         }),
       });
 

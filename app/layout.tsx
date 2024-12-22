@@ -16,7 +16,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: 'Karkhana MakerHub',
-  description: 'Karkhana MakerHub is a platform for makers to find and book machines, events and makerspaces.',
+  description:
+    'Karkhana MakerHub is a platform for makers to find and book machines, events and makerspaces.',
 };
 
 export default function RootLayout({

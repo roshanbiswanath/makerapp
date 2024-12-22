@@ -33,7 +33,7 @@ export default function ForgotPasswordPage() {
       setIsSubmitted(true);
     } catch (err) {
       // setError('Failed to send reset email. Please try again.');
-      console.log(err)
+      console.log(err);
     } finally {
       setIsLoading(false);
     }

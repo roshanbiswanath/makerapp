@@ -70,39 +70,39 @@ export default function Page() {
         {activeSegment === 'machine' && <Machine />}
         {activeSegment === 'events' && <Event />}
         <div className="fixed left-1/2 transform -translate-x-1/2 bottom-20 inline-flex rounded-full bg-gray-800 p-1">
-            <Button
+          <Button
             variant="ghost"
             className={`rounded-l-full p-6 text-sm font-medium transition-colors ${
               activeSegment === 'makerspaces'
-              ? 'bg-white text-black shadow'
-              : 'text-white hover:bg-gray-700'
+                ? 'bg-white text-black shadow'
+                : 'text-white hover:bg-gray-700'
             }`}
             onClick={() => setActiveSegment('makerspaces')}
-            >
+          >
             Find Makerspaces
-            </Button>
-            <Button
+          </Button>
+          <Button
             variant="ghost"
             className={`rounded-none p-6 text-sm font-medium transition-colors ${
               activeSegment === 'machine'
-              ? 'bg-white text-black shadow'
-              : 'text-white hover:bg-gray-700'
+                ? 'bg-white text-black shadow'
+                : 'text-white hover:bg-gray-700'
             }`}
             onClick={() => setActiveSegment('machine')}
-            >
+          >
             Book a Machine
-            </Button>
-            <Button
+          </Button>
+          <Button
             variant="ghost"
             className={`rounded-r-full p-6 text-sm font-medium transition-colors ${
               activeSegment === 'events'
-              ? 'bg-white text-black shadow'
-              : 'text-white hover:bg-gray-700'
+                ? 'bg-white text-black shadow'
+                : 'text-white hover:bg-gray-700'
             }`}
             onClick={() => setActiveSegment('events')}
-            >
+          >
             Explore Events
-            </Button>
+          </Button>
         </div>
       </div>
       <Footer />

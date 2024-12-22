@@ -110,7 +110,7 @@ export default function SpaceSubmissionFlow() {
         formDataToSend.append('address', JSON.stringify(formData.address));
 
         // Append file data
-        formData.media.images.forEach((image, index) => {
+        formData.media.images.forEach((image) => {
           formDataToSend.append(`images`, image);
         });
         if (formData.media.spaceLogo) {
@@ -823,7 +823,7 @@ export default function SpaceSubmissionFlow() {
                             className="w-full h-full object-cover rounded-2xl"
                           />
                           <button
-                            type='button'
+                            type="button"
                             onClick={() => removeImage(index)}
                             className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1"
                           >
