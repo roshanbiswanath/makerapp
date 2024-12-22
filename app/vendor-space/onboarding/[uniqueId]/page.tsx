@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Check, ArrowRight, Plus, Info } from 'lucide-react';
+import { Check, ArrowRight, Plus, Info, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -13,9 +13,17 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 interface FormData {
+  uniqueLink: string | string[];
   type: 'independent' | 'institution' | null;
   purposes: ('rent' | 'membership' | 'events')[];
   spaceDetails: {
@@ -41,15 +49,17 @@ interface FormData {
   };
   media: {
     images: File[];
-    spaceLogo?: File;
-    orgLogo?: File;
+    spaceLogo: File | null;
+    orgLogo: File | null;
   };
 }
 
 export default function SpaceSubmissionFlow() {
   const router = useRouter();
+  const { uniqueId } = useParams();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
+    uniqueLink: uniqueId,
     type: null,
     purposes: [],
     spaceDetails: {
@@ -72,8 +82,8 @@ export default function SpaceSubmissionFlow() {
     },
     media: {
       images: [],
-      spaceLogo: undefined,
-      orgLogo: undefined,
+      spaceLogo: null,
+      orgLogo: null,
     },
   });
 
@@ -88,15 +98,92 @@ export default function SpaceSubmissionFlow() {
     'Sunday',
   ];
 
-  const handleNext = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, 5));
+  const handleNext = async () => {
     if (currentStep === 5) {
-      router.push(`/vendor-space/${currentStep}/dashboard`);
+      try {
+        const formDataToSend = new FormData();
+
+        // Append non-file data
+        formDataToSend.append('uniqueLink', formData.uniqueLink as string);
+        formDataToSend.append('type', formData.type || '');
+        formDataToSend.append('purposes', JSON.stringify(formData.purposes));
+        formDataToSend.append(
+          'spaceDetails',
+          JSON.stringify(formData.spaceDetails)
+        );
+        formDataToSend.append('address', JSON.stringify(formData.address));
+
+        // Append file data
+        formData.media.images.forEach((image, index) => {
+          formDataToSend.append(`images`, image);
+        });
+        if (formData.media.spaceLogo) {
+          formDataToSend.append('spaceLogo', formData.media.spaceLogo);
+        }
+        if (formData.media.orgLogo) {
+          formDataToSend.append('orgLogo', formData.media.orgLogo);
+        }
+
+        const response = await fetch('/api/submit-space', {
+          method: 'POST',
+          body: formDataToSend,
+        });
+
+        if (response.ok) {
+          router.push(`/vendor-space/${currentStep}/dashboard`);
+        } else {
+          // Handle error
+          console.error('Failed to submit space data');
+        }
+      } catch (error) {
+        console.error('Error submitting space data:', error);
+      }
+    } else {
+      setCurrentStep((prev) => Math.min(prev + 1, 5));
     }
   };
 
   const handleBack = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
+  };
+
+  const handleFileUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    type: 'images' | 'spaceLogo' | 'orgLogo',
+    index?: number
+  ) => {
+    const files = event.target.files;
+    if (files) {
+      if (type === 'images' && typeof index === 'number') {
+        const newImages = [...formData.media.images];
+        newImages[index] = files[0];
+        setFormData((prev) => ({
+          ...prev,
+          media: {
+            ...prev.media,
+            images: newImages,
+          },
+        }));
+      } else if (type === 'spaceLogo' || type === 'orgLogo') {
+        setFormData((prev) => ({
+          ...prev,
+          media: {
+            ...prev.media,
+            [type]: files[0],
+          },
+        }));
+      }
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      media: {
+        ...prev.media,
+        images: prev.media.images.filter((_, i) => i !== index),
+      },
+    }));
   };
 
   const renderStep = () => {
@@ -376,39 +463,65 @@ export default function SpaceSubmissionFlow() {
                     Select Timings
                   </Label>
                   <div className="flex items-center gap-4">
-                    <Input
+                    <Select
                       value={formData.spaceDetails.timings.from}
-                      onChange={(e) =>
+                      onValueChange={(value) =>
                         setFormData({
                           ...formData,
                           spaceDetails: {
                             ...formData.spaceDetails,
                             timings: {
                               ...formData.spaceDetails.timings,
-                              from: e.target.value,
+                              from: value,
                             },
                           },
                         })
                       }
-                      className="h-12 border border-black/20 rounded-2xl text-base"
-                    />
+                    >
+                      <SelectTrigger className="h-12 border border-black/20 rounded-2xl text-base">
+                        <SelectValue placeholder="From" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Array.from({ length: 24 }, (_, i) => i).map((hour) => (
+                          <SelectItem
+                            key={hour}
+                            value={`${hour.toString().padStart(2, '0')}:00`}
+                          >
+                            {`${hour.toString().padStart(2, '0')}:00`}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <span className="text-gray-500">to</span>
-                    <Input
+                    <Select
                       value={formData.spaceDetails.timings.to}
-                      onChange={(e) =>
+                      onValueChange={(value) =>
                         setFormData({
                           ...formData,
                           spaceDetails: {
                             ...formData.spaceDetails,
                             timings: {
                               ...formData.spaceDetails.timings,
-                              to: e.target.value,
+                              to: value,
                             },
                           },
                         })
                       }
-                      className="h-12 border border-black/20 rounded-2xl text-base"
-                    />
+                    >
+                      <SelectTrigger className="h-12 border border-black/20 rounded-2xl text-base">
+                        <SelectValue placeholder="To" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Array.from({ length: 24 }, (_, i) => i).map((hour) => (
+                          <SelectItem
+                            key={hour}
+                            value={`${hour.toString().padStart(2, '0')}:00`}
+                          >
+                            {`${hour.toString().padStart(2, '0')}:00`}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               </div>
@@ -542,6 +655,7 @@ export default function SpaceSubmissionFlow() {
                         })
                       }
                       className="h-12 border border-black/20 rounded-2xl pr-12 text-base placeholder:text-gray-400"
+                      disabled={formData.type === 'independent'}
                     />
                     {formData.address.orgName && (
                       <Check className="w-5 h-5 text-green-500 absolute right-4 top-1/2 -translate-y-1/2" />
@@ -658,6 +772,7 @@ export default function SpaceSubmissionFlow() {
                         })
                       }
                       className="h-12 border border-black/20 rounded-2xl pr-12 text-base placeholder:text-gray-400"
+                      disabled={formData.type === 'independent'}
                     />
                     {formData.address.orgEmail && (
                       <Check className="w-5 h-5 text-green-500 absolute right-4 top-1/2 -translate-y-1/2" />
@@ -697,12 +812,42 @@ export default function SpaceSubmissionFlow() {
                   </TooltipProvider>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {[1, 2, 3, 4].map((index) => (
+                  {[0, 1, 2, 3].map((index) => (
                     <div
                       key={index}
-                      className="aspect-[16/9] rounded-2xl border-2 border-dashed border-gray-400 flex items-center justify-center cursor-pointer hover:border-gray-300 transition-colors"
+                      className="relative aspect-[16/9] rounded-2xl border-2 border-gray-200"
                     >
-                      <Plus className="w-8 h-8 text-gray-300" />
+                      {formData.media.images[index] ? (
+                        <>
+                          <Image
+                            src={URL.createObjectURL(
+                              formData.media.images[index]
+                            )}
+                            alt={`Space image ${index + 1}`}
+                            className="object-cover rounded-2xl"
+                            layout="fill"
+                          />
+                          <button
+                            type='button'
+                            onClick={() => removeImage(index)}
+                            className="absolute top-2 right-2 bg-red-500 text-white rounded-2xl p-1"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </>
+                      ) : (
+                        <label className="w-full h-full flex items-center justify-center cursor-pointer">
+                          <Input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) =>
+                              handleFileUpload(e, 'images', index)
+                            }
+                            className="hidden"
+                          />
+                          <Plus className="w-8 h-8 text-gray-300" />
+                        </label>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -725,18 +870,46 @@ export default function SpaceSubmissionFlow() {
                       </Tooltip>
                     </TooltipProvider>
                   </div>
-                  <div className="w-32 h-32 rounded-full border-2 border-dashed border-gray-400 flex items-center justify-center cursor-pointer hover:border-gray-300 transition-colors">
-                    <Plus className="w-8 h-8 text-gray-300" />
-                  </div>
+                  <label className="w-32 h-32 rounded-full border-2 border-dashed border-gray-400 flex items-center justify-center cursor-pointer hover:border-gray-300 transition-colors">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileUpload(e, 'spaceLogo')}
+                      className="hidden"
+                    />
+                    {formData.media.spaceLogo ? (
+                      <img
+                        src={URL.createObjectURL(formData.media.spaceLogo)}
+                        alt="Space logo"
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    ) : (
+                      <Plus className="w-8 h-8 text-gray-300" />
+                    )}
+                  </label>
                 </div>
 
                 <div className="flex flex-col items-center text-center space-y-4">
                   <Label className="text-base font-normal text-gray-600">
                     Upload organisation&apos;s logo (Optional)
                   </Label>
-                  <div className="w-32 h-32 rounded-full border-2 border-dashed border-gray-400 flex items-center justify-center cursor-pointer hover:border-gray-300 transition-colors">
-                    <Plus className="w-8 h-8 text-gray-300" />
-                  </div>
+                  <label className="w-32 h-32 rounded-full border-2 border-dashed border-gray-400 flex items-center justify-center cursor-pointer hover:border-gray-300 transition-colors">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileUpload(e, 'orgLogo')}
+                      className="hidden"
+                    />
+                    {formData.media.orgLogo ? (
+                      <img
+                        src={URL.createObjectURL(formData.media.orgLogo)}
+                        alt="Organization logo"
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    ) : (
+                      <Plus className="w-8 h-8 text-gray-300" />
+                    )}
+                  </label>
                 </div>
               </div>
             </div>
