@@ -8,7 +8,7 @@ const nextConfig = {
         source: '/api/:path*',
         // destination: 'http://localhost:3001/api/:path*',
         // destination: 'https://makerappbackend.onrender.com/api/:path*',
-        destination:"https://geek-occurrence-editorial-detail.trycloudflare.com/:path*",
+        destination:"https://geek-occurrence-editorial-detail.trycloudflare.com/api/:path*",
       },
     ];
   },
