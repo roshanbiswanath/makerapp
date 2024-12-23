@@ -20,6 +20,8 @@ export const metadata: Metadata = {
     'Karkhana MakerHub is a platform for makers to find and book machines, events and makerspaces.',
 };
 
+export const dynamic = 'force-dynamic'
+
 export default function RootLayout({
   children,
 }: Readonly<{
