@@ -6,12 +6,21 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://localhost:3001/api/:path*',
-        // destination: 'https://makerappbackend.onrender.com/api/:path*',
+        // destination: 'http://localhost:3001/api/:path*',
+        destination: 'https://makerappbackend.onrender.com/api/:path*',
         // destination:"https://geek-occurrence-editorial-detail.trycloudflare.com/api/:path*",
       },
     ];
   },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/api/auth/:path*',
+  //       destination: 'https://makerappbackend.onrender.com/auth/:path*',
+  //       permanent: true,
+  //     },
+  //   ];
+  // },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.
